@@ -1,0 +1,98 @@
+import { createBrowserRouter } from "react-router";
+import RootLayout from "../Layout/RootLayout/RootLayout";
+import Home from "../Pages/Home/Home";
+import Error from "../Pages/Error/Error";
+import Dashboard from "../Pages/Overview/Overview";
+import AvailableCamps from "../Pages/AvailableCamps/AvailableCamps";
+import JoinUs from "../Pages/JoinUs/JoinUs";
+import AuthLayout from "../Layout/AuthLayout/AuthLayout";
+import Login from "../Pages/Login/Login";
+import Register from "../Pages/Register/Register";
+import DashboardLayout from "../Layout/DashboardLayout/DashboardLayout";
+import Overview from "../Pages/Overview/Overview";
+import Analytics from "../Pages/Analytics/Analytics";
+import ManageCamps from "../Pages/ManageCamps/ManageCamps";
+import ManageRegisteredCamps from "../Pages/ManageRegisteredCamps/ManageRegisteredCamps";
+import AddCamp from "../Pages/AddCamp/AddCamp";
+import OrganizerProfile from "../Pages/OrganizerProfile/OrganizerProfile";
+import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory";
+import RegisteredCamps from "../Pages/RegisteredCamps/RegisteredCamps";
+import ParticipantProfile from "../Pages/ParticipantProfile/ParticipantProfile";
+
+export const router = createBrowserRouter([
+  {
+    path: "/",
+    Component: RootLayout,
+    errorElement: <Error />,
+    children: [
+      {
+        index: true,
+        Component: Home,
+      },
+      {
+        path: "/available-camps",
+        Component: AvailableCamps,
+      },
+      {
+        path: "/join-us",
+        Component: JoinUs,
+      },
+    ],
+  },
+  {
+    path: "/",
+    element: <DashboardLayout />,
+    children: [
+      {
+        path: "overview",
+        Component: Overview,
+      },
+      {
+        path: "analytics",
+        Component: Analytics,
+      },
+      {
+        path: "participant-profile",
+        Component: ParticipantProfile,
+      },
+      {
+        path: "registered-camps",
+        Component: RegisteredCamps,
+      },
+      {
+        path: "payment-history",
+        Component: PaymentHistory,
+      },
+      {
+        path: "organizer-profile",
+        Component: OrganizerProfile,
+      },
+      {
+        path: "add-camp",
+        Component: AddCamp,
+      },
+      {
+        path: "manage-camps",
+        Component: ManageCamps,
+      },
+      {
+        path: "manage-registered",
+        Component: ManageRegisteredCamps,
+      },
+    ],
+  },
+  {
+    path: "/",
+    Component: AuthLayout,
+    children: [
+      {
+        path: "login",
+        Component: Login,
+      },
+      {
+        path: "register",
+        Component: Register,
+      },
+    ],
+  },
+]);
