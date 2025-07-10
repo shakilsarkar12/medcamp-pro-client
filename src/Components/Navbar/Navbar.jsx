@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import { FiMenu } from "react-icons/fi";
 import MainLogo from "../../Shared/MainLogo";
 import PrimaryButton from "../../Shared/PrimaryButton";
 import SecondaryButton from "../../Shared/SecondaryButton";
 import SideNavbar from "./SideNavbar";
+import useAuth from "../../Utils/Hooks/useAuth";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);
+  const {user} = useAuth();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const toggleDrawer = () => setIsDrawerOpen(!isDrawerOpen);
@@ -21,10 +22,10 @@ const Navbar = () => {
 
         {/* Desktop Nav */}
         <nav className="hidden lg:flex items-center gap-8">
-          <a href="/">Home</a>
-          <a href="/available-camps">Available Camps</a>
-          <a href="/join-us">Join Us</a>
-          <a href="/overview">Dashboard</a>
+          <NavLink to="/">Home</NavLink>
+          <NavLink to="/available-camps">Available Camps</NavLink>
+          <NavLink to="/join-us">Join Us</NavLink>
+          <NavLink to="/overview">Dashboard</NavLink>
         </nav>
 
         {/* Desktop Auth Buttons */}
@@ -32,9 +33,7 @@ const Navbar = () => {
           <div className="hidden lg:flex items-center gap-4">
             <PrimaryButton
               text="Log in"
-              onClick={() =>
-                setUser({ name: "shakil", email: "shakil@gmail.com" })
-              }
+              onClick={() =>navigate("/login")}
             />
             <SecondaryButton
               text="Register"

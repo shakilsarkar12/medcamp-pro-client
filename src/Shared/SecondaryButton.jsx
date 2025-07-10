@@ -10,7 +10,7 @@ const SecondaryButton = ({
   return (
     <button
       onClick={onClick}
-      className={`bg-[#2D91EF] text-white ${px} ${py} rounded-md ${className}`}
+      className={`bg-[#2D91EF] text-white ${px} ${py} rounded-md ${className} cursor-pointer`}
     >
       {text}
     </button>

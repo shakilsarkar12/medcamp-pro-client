@@ -6,11 +6,13 @@ const PrimaryButton = ({
   py = "py-2",
   onClick = () => {},
   className = "",
+  type = "button"
 }) => {
   return (
     <button
       onClick={onClick}
-      className={`bg-[#01BF68] text-white ${px} ${py} rounded-md ${className}`}
+      type={type}
+      className={`bg-[#01BF68] text-white ${px} ${py} rounded-md ${className} cursor-pointer`}
     >
       {text}
     </button>
