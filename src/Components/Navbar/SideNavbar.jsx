@@ -1,9 +1,14 @@
 import React from "react";
-import { NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import { FiX, FiLogOut } from "react-icons/fi";
 import MainLogo from "../../Shared/MainLogo";
+import useAuth from "../../Utils/Hooks/useAuth";
+import PrimaryButton from "../../Shared/PrimaryButton";
+import SecondaryButton from "../../Shared/SecondaryButton";
 
-const SideNavbar = ({ isOpen, onClose, user, onLogout }) => {
+const SideNavbar = ({ isOpen, onClose, onLogout }) => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
   return (
     <>
       {/* Overlay */}
@@ -51,7 +56,7 @@ const SideNavbar = ({ isOpen, onClose, user, onLogout }) => {
               Join Us
             </NavLink>
             <NavLink
-              to="/dashboard"
+              to="/overview"
               onClick={onClose}
               className="hover:text-primary"
             >
@@ -61,35 +66,54 @@ const SideNavbar = ({ isOpen, onClose, user, onLogout }) => {
         </div>
 
         {/* Bottom: User Info + Logout */}
-        {user && (
-          <div className="p-4 border-t border-gray-200">
-            <div className="flex items-center gap-3 mb-3">
-              <img
-                src={
-                  user.photoURL ||
-                  "https://i.ibb.co/ccZtvg4B/Portrait-Placeholder.png"
-                }
-                alt="profile"
-                className="w-10 h-10 rounded-full object-cover"
-              />
-              <div>
-                <p className="font-semibold">{user.name || "User Name"}</p>
-                <p className="text-sm text-gray-600">{user.email}</p>
+        <div className="p-4 border-t border-gray-200">
+          {user && (
+            <>
+              <div className="flex items-center gap-3 mb-3">
+                <Link to="/participant-profile">
+                  <img
+                    referrerPolicy="no-referrer"
+                    src={
+                      user.photoURL ||
+                      "https://i.ibb.co/ccZtvg4B/Portrait-Placeholder.png"
+                    }
+                    alt="profile"
+                    className="w-10 h-10 rounded-full object-cover"
+                  />
+                </Link>
+                <div>
+                  <Link to="/participant-profile" className="font-semibold">
+                    {user.displayName || "User Name"}
+                  </Link>
+                </div>
               </div>
+              <button
+                onClick={() => {
+                  onLogout();
+                  onClose();
+                }}
+                className="w-full flex items-center gap-2 justify-center px-4 py-2 text-white rounded bg-red-600 transition"
+              >
+                <FiLogOut />
+                Logout
+              </button>
+            </>
+          )}
+          {!user && (
+            <div className="flex flex-col items-center gap-4">
+              <PrimaryButton
+                className="w-full"
+                text="Log in"
+                onClick={() => navigate("/login")}
+              />
+              <SecondaryButton
+                className="w-full"
+                text="Register"
+                onClick={() => navigate("/register")}
+              />
             </div>
-
-            <button
-              onClick={() => {
-                onLogout();
-                onClose();
-              }}
-              className="w-full flex items-center gap-2 justify-center px-4 py-2 text-white rounded bg-red-600 transition"
-            >
-              <FiLogOut />
-              Logout
-            </button>
-          </div>
-        )}
+          )}
+        </div>
       </aside>
     </>
   );

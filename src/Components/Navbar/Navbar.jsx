@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink, useNavigate } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import { FiMenu } from "react-icons/fi";
 import MainLogo from "../../Shared/MainLogo";
 import PrimaryButton from "../../Shared/PrimaryButton";
@@ -9,10 +9,22 @@ import useAuth from "../../Utils/Hooks/useAuth";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const {user} = useAuth();
+  const { user, setUser, setLoading, logOutUser } = useAuth();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const toggleDrawer = () => setIsDrawerOpen(!isDrawerOpen);
+
+  const handleLogOut = () => {
+    logOutUser()
+      .then(() => {
+        setUser(null);
+        setLoading(false);
+        alert("Your Account logout Success");
+      })
+      .catch((err) => {
+        alert("logout error", err);
+      });
+  };
 
   return (
     <header className="bg-gray-100 py-3 sticky top-0 z-[10000] shadow-sm">
@@ -31,10 +43,7 @@ const Navbar = () => {
         {/* Desktop Auth Buttons */}
         {!user && (
           <div className="hidden lg:flex items-center gap-4">
-            <PrimaryButton
-              text="Log in"
-              onClick={() =>navigate("/login")}
-            />
+            <PrimaryButton text="Log in" onClick={() => navigate("/login")} />
             <SecondaryButton
               text="Register"
               onClick={() => navigate("/register")}
@@ -43,12 +52,18 @@ const Navbar = () => {
         )}
         {user && (
           <div className="hidden lg:flex items-center gap-4">
-            <PrimaryButton text="Log Out" onClick={() => setUser(null)} />
-            <img
-              className="w-10 h-10 rounded-full"
-              src="https://i.ibb.co/ccZtvg4B/Portrait-Placeholder.png"
-              alt="User"
-            />
+            <PrimaryButton text="Log Out" onClick={() => handleLogOut()} />
+            <Link to="/participant-profile">
+              <img
+                referrerPolicy="no-referrer"
+                src={
+                  user.photoURL ||
+                  "https://i.ibb.co/ccZtvg4B/Portrait-Placeholder.png"
+                }
+                alt="profile"
+                className="w-10 h-10 rounded-full object-cover"
+              />
+            </Link>
           </div>
         )}
 
@@ -63,7 +78,7 @@ const Navbar = () => {
         isOpen={isDrawerOpen}
         onClose={toggleDrawer}
         user={user}
-        onLogout={() => setUser(null)}
+        onLogout={() => handleLogOut()}
       />
     </header>
   );

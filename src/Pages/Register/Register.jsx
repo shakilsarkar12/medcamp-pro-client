@@ -3,17 +3,37 @@ import { useForm } from "react-hook-form";
 import PrimaryButton from "../../Shared/PrimaryButton";
 import Divider from "../../Shared/Divider";
 import GoogleLogin from "../../Shared/GoogleLogin";
+import useAuth from "../../Utils/Hooks/useAuth";
+import { Link, Navigate } from "react-router";
 
 const Register = () => {
+  const { user, setUser, registerWithEmail } = useAuth();
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm();
+  const password = watch("password");
 
   const handleRegister = (data) => {
     console.log(data);
+    const email = data?.email;
+    const password = data?.password;
+
+    registerWithEmail(email, password)
+      .then((result) => {
+        const user = result.user;
+        setUser(user);
+      })
+      .catch((err) => {
+        alert("Auth Error", err);
+      });
   };
+
+  if (user) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <div className="w-sm">
@@ -33,7 +53,7 @@ const Register = () => {
             className="border border-[#2D91EF] rounded-md px-3 py-1.5 focus:outline-[#2D91EF] w-full placeholder:text-sm"
           />
           {errors.name && (
-            <p className="text-red-500 text-sm">{errors.name.message}</p>
+            <p className="text-red-500 text-xs">{errors.name.message}</p>
           )}
         </div>
         {/* Email */}
@@ -46,7 +66,7 @@ const Register = () => {
             className="border border-[#2D91EF] rounded-md px-3 py-1.5 focus:outline-[#2D91EF] w-full placeholder:text-sm"
           />
           {errors.email && (
-            <p className="text-red-500 text-sm">{errors.email.message}</p>
+            <p className="text-red-500 text-xs">{errors.email.message}</p>
           )}
         </div>
         {/* Password */}
@@ -75,6 +95,26 @@ const Register = () => {
           )}
         </div>
 
+        {/* Confirm Password */}
+        <div className="flex flex-col gap-2">
+          <label>Confirm Password</label>
+          <input
+            type="password"
+            {...register("confirmPassword", {
+              required: "Confirm Password is required",
+              validate: (value) =>
+                value === password || "Passwords do not match",
+            })}
+            placeholder="Re-enter Password"
+            className="border border-[#2D91EF] rounded-md px-3 py-1.5 focus:outline-[#2D91EF] w-full placeholder:text-sm"
+          />
+          {errors.confirmPassword && (
+            <p className="text-red-500 text-xs">
+              {errors.confirmPassword.message}
+            </p>
+          )}
+        </div>
+
         <PrimaryButton type="submit" className="w-full" text="Register" />
       </form>
 
@@ -84,9 +124,9 @@ const Register = () => {
 
       <p className="mt-4 text-center text-sm">
         Already have an account?{" "}
-        <a href="/login" className="text-blue-600 underline">
+        <Link to="/login" className="text-blue-600 underline">
           Login
-        </a>
+        </Link>
       </p>
     </div>
   );

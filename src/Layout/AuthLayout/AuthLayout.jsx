@@ -9,7 +9,7 @@ const AuthLayout = () => {
       <Navbar />
       <div className="mx-4 md:mx-8 lg:mx-14 xl:h-11/12 2xl:max-w-10/12  2xl:mx-auto w-full mt-10 bg-gray-50 shadow rounded flex items-center justify-around py-16">
         <Outlet />
-        <div className="self-start">
+        <div>
           <img className="w-md" src={regImg} alt="" />
         </div>
       </div>

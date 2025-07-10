@@ -4,8 +4,11 @@ import { FcGoogle } from "react-icons/fc";
 import PrimaryButton from "../../Shared/PrimaryButton";
 import Divider from "../../Shared/Divider";
 import GoogleLogin from "../../Shared/GoogleLogin";
+import { Link, Navigate } from "react-router";
+import useAuth from "../../Utils/Hooks/useAuth";
 
 const Login = () => {
+  const { user, setUser, setLoading, loginWithEmail } = useAuth();
   const {
     register,
     handleSubmit,
@@ -14,7 +17,24 @@ const Login = () => {
 
   const handleLogin = (data) => {
     console.log(data);
+    const email = data?.email;
+    const password = data?.password;
+
+    loginWithEmail(email, password)
+      .then((result) => {
+        const user = result.user;
+        setLoading(false);
+        setUser(user);
+      })
+      .catch((err) => {
+        alert("login error", err);
+      });
   };
+
+  if (user) {
+    return <Navigate to="/" />;
+  }
+
   return (
     <div className="w-sm">
       <h2 className="text-2xl font-semibold mb-6">
@@ -45,7 +65,9 @@ const Login = () => {
             className="border border-[#2D91EF] rounded-md px-3 py-1.5 focus:outline-[#2D91EF] w-full placeholder:text-sm"
           />
           {errors?.password?.type === "required" && (
-            <span className="text-red-500 text-xs">{errors?.password?.message}</span>
+            <span className="text-red-500 text-xs">
+              {errors?.password?.message}
+            </span>
           )}
         </div>
 
@@ -58,9 +80,9 @@ const Login = () => {
 
       <p className="mt-4 text-center text-sm">
         Dont't have an account?{" "}
-        <a href="/register" className="text-blue-600 underline">
+        <Link to="/register" className="text-blue-600 underline">
           Register
-        </a>
+        </Link>
       </p>
     </div>
   );
