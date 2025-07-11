@@ -4,12 +4,13 @@ import { FcGoogle } from "react-icons/fc";
 import PrimaryButton from "../../Shared/PrimaryButton";
 import Divider from "../../Shared/Divider";
 import GoogleLogin from "../../Shared/GoogleLogin";
-import { Link, Navigate } from "react-router";
+import { Link, Navigate, useLocation } from "react-router";
 import useAuth from "../../Utils/Hooks/useAuth";
 import axiosSecure from "../../Utils/axiosSecure";
 
 const Login = () => {
   const { user, setUser, setLoading, loginWithEmail } = useAuth();
+  const location = useLocation();
   const {
     register,
     handleSubmit,
@@ -66,7 +67,7 @@ const Login = () => {
   };
 
   if (user) {
-    return <Navigate to="/" />;
+    return <Navigate to={location?.state || "/" } />;
   }
 
   return (

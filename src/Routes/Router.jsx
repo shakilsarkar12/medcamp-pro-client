@@ -18,6 +18,7 @@ import OrganizerProfile from "../Pages/OrganizerProfile/OrganizerProfile";
 import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory";
 import RegisteredCamps from "../Pages/RegisteredCamps/RegisteredCamps";
 import ParticipantProfile from "../Pages/ParticipantProfile/ParticipantProfile";
+import PrivateRoute from "../Private/PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -41,7 +42,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <DashboardLayout />,
+    element: (
+      <PrivateRoute>
+        <DashboardLayout />
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "overview",
