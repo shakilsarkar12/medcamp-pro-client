@@ -9,6 +9,7 @@ import {
   signOut,
 } from "firebase/auth";
 import { auth } from "../../Firebase/firebase.init";
+import axiosSecure from "../../Utils/axiosSecure";
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -37,9 +38,26 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setLoading(false);
-      console.log(currentUser);
+      const email = currentUser?.email;
+      axiosSecure
+        .get(`/users/${email}`)
+        .then((res) => {
+          const dbUser = res.data;
+          if (dbUser) {
+            console.log("User logged in:", dbUser);
+            setUser(dbUser);
+          } else {
+            console.warn("User not found in DB");
+          }
+
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.error("Error fetching user from DB:", err);
+          setLoading(false);
+        });
+      const token = currentUser?.accessToken;
+      localStorage.setItem("access-token", token);
     });
     return () => unsubscribe();
   }, []);

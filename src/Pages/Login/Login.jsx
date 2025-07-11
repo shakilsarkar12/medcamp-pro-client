@@ -6,6 +6,7 @@ import Divider from "../../Shared/Divider";
 import GoogleLogin from "../../Shared/GoogleLogin";
 import { Link, Navigate } from "react-router";
 import useAuth from "../../Utils/Hooks/useAuth";
+import axiosSecure from "../../Utils/axiosSecure";
 
 const Login = () => {
   const { user, setUser, setLoading, loginWithEmail } = useAuth();
@@ -16,18 +17,51 @@ const Login = () => {
   } = useForm();
 
   const handleLogin = (data) => {
-    console.log(data);
+    setLoading(true);
+
     const email = data?.email;
     const password = data?.password;
 
     loginWithEmail(email, password)
       .then((result) => {
         const user = result.user;
-        setLoading(false);
-        setUser(user);
+        const token = user?.accessToken;
+
+        localStorage.setItem("access-token", token);
+
+        axiosSecure
+          .get(`/users/${email}`)
+          .then((res) => {
+            const dbUser = res.data;
+            if (dbUser) {
+              const lastLogin = new Date().toISOString();
+
+              axiosSecure
+                .patch(`/users/last-login/${email}`, { lastLogin })
+                .then(() => {
+                  console.log("Login Success");
+                })
+                .catch((err) => {
+                  console.error("Failed to update lastLogin:", err);
+                });
+
+              setUser(dbUser);
+              console.log("User logged in:", dbUser);
+            } else {
+              console.warn("User not found in DB");
+            }
+
+            setLoading(false);
+          })
+          .catch((err) => {
+            console.error("Error fetching user from DB:", err);
+            setLoading(false);
+          });
       })
       .catch((err) => {
-        alert("login error", err);
+        console.error("Login error:", err);
+        alert("Login failed. Please check your credentials.");
+        setLoading(false);
       });
   };
 
@@ -36,8 +70,8 @@ const Login = () => {
   }
 
   return (
-    <div className="w-sm">
-      <h2 className="text-2xl font-semibold mb-6">
+    <div className="w-full md:max-w-sm">
+      <h2 className="text-xl md:text-2xl font-medium md:font-semibold mb-6">
         Welcome Back ! Please Login
       </h2>
 
@@ -78,7 +112,7 @@ const Login = () => {
 
       <GoogleLogin />
 
-      <p className="mt-4 text-center text-sm">
+      <p className="mt-4 text-center md:text-start text-sm">
         Dont't have an account?{" "}
         <Link to="/register" className="text-blue-600 underline">
           Register

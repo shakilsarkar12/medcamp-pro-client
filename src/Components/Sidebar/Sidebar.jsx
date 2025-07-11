@@ -12,19 +12,29 @@ import {
 import SidebarLink from "../../Shared/SidebarLink";
 import MainLogo from "../../Shared/MainLogo";
 import { useNavigate } from "react-router";
+import useAuth from "../../Utils/Hooks/useAuth";
 
 const Sidebar = ({ isOpen, setIsOpen }) => {
+  const { user, setUser, setLoading, logOutUser } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    // your logout logic here
-    console.log("Logging out...");
-    navigate("/"); // or login page
+  const handleLogOut = () => {
+    logOutUser()
+      .then(() => {
+        setUser(null);
+        setLoading(false);
+        alert("Your Account logout Success");
+        navigate("/login");
+        localStorage.removeItem("access-token");
+      })
+      .catch((err) => {
+        alert("logout error", err);
+      });
   };
 
-    return (
+  return (
     <aside
-      className={`fixed z-40 inset-y-0 left-0 w-64 bg-gray-50 shadow-lg transform transition-transform duration-300 ease-in-out
+      className={`fixed z-40 inset-y-0 left-0 w-[270px] sm:w-[290px] bg-gray-50 shadow-lg transform transition-transform duration-300 ease-in-out
         ${isOpen ? "translate-x-0" : "-translate-x-full"} 
         md:translate-x-0 md:static md:shadow-none flex flex-col`}
     >
@@ -95,7 +105,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
           label="Organizer Profile"
         />
         <button
-          onClick={handleLogout}
+          onClick={handleLogOut}
           className="w-full flex items-center gap-2 justify-center px-4 py-2 text-white rounded bg-red-600 transition mt-4"
         >
           <FiLogOut />

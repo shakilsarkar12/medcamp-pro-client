@@ -7,7 +7,7 @@ const SidebarLink = ({ to, icon: Icon, label, setIsOpen }) => {
       onClick={() => setIsOpen(false)}
       to={to}
       className={({ isActive }) =>
-        `flex items-center gap-3 px-4 py-2 rounded-md transition 
+        `flex items-center gap-2 sm:gap-3 px-2 sm:px-4 py-2 rounded-md transition 
         ${
           isActive
             ? "bg-[#2D91EF] text-white"

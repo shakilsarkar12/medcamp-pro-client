@@ -5,12 +5,22 @@ import regImg from "../../assets/register2.svg";
 
 const AuthLayout = () => {
   return (
-    <div className="">
+    <div className="min-h-screen bg-gray-100">
       <Navbar />
-      <div className="mx-4 md:mx-8 lg:mx-14 xl:h-11/12 2xl:max-w-10/12  2xl:mx-auto w-full mt-10 bg-gray-50 shadow rounded flex items-center justify-around py-16">
-        <Outlet />
-        <div>
-          <img className="w-md" src={regImg} alt="" />
+      <div className="max-w-11/12 mx-auto mt-8 py-8">
+        <div className="bg-white shadow rounded flex flex-col-reverse md:flex-row items-center justify-center md:justify-around gap-8 p-4 py-10 md:p-10">
+          <div className="w-full md:w-1/2">
+            <Outlet />
+          </div>
+
+          {/* Image */}
+          <div className="w-full md:w-1/2 hidden md:flex justify-center">
+            <img
+              className="max-w-xs md:max-w-sm lg:max-w-md w-full"
+              src={regImg}
+              alt="Registration"
+            />
+          </div>
         </div>
       </div>
     </div>

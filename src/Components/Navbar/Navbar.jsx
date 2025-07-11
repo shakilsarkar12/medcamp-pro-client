@@ -20,6 +20,7 @@ const Navbar = () => {
         setUser(null);
         setLoading(false);
         alert("Your Account logout Success");
+        localStorage.removeItem("access-token");
       })
       .catch((err) => {
         alert("logout error", err);
