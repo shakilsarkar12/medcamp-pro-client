@@ -8,6 +8,7 @@ import { Link, Navigate } from "react-router";
 import { updateProfile } from "firebase/auth";
 import axiosSecure from "../../Utils/axiosSecure";
 import { IoEye, IoEyeOff } from "react-icons/io5";
+import { toast } from "sonner";
 
 const Register = () => {
   const { user, setUser, setLoading, registerWithEmail } = useAuth();
@@ -21,7 +22,6 @@ const Register = () => {
   const password = watch("password");
 
   const handleRegister = (data) => {
-    console.log(data);
     const bgColors = ["00C4B4", "005F73", "F9844A", "06D6A0", "FF4D4F"];
     const randomBg = bgColors[Math.floor(Math.random() * bgColors.length)];
 
@@ -33,8 +33,10 @@ const Register = () => {
     registerWithEmail(email, password)
       .then((result) => {
         const user = result.user;
-        const creationTime = user?.metadata.creationTime;
-        const lastSignInTime = user?.metadata.lastSignInTime;
+        const creationTimeDate = user?.metadata.creationTime;
+        const lastSignInTimeDate = user?.metadata.lastSignInTime;
+        const creationTime = new Date(creationTimeDate).toISOString();
+        const lastSignInTime = new Date(lastSignInTimeDate).toISOString();
         const phoneNumber = user?.phoneNumber;
         const emailVerified = user?.emailVerified;
 
@@ -46,12 +48,10 @@ const Register = () => {
           creationTime,
           lastSignInTime,
           emailVerified,
-          role: "participant",
         };
 
         updateProfile(user, { displayName, photoURL })
           .then(() => {
-            console.log("Firebase Profile Updated");
             const token = user?.accessToken;
             if (token) {
               localStorage.setItem("access-token", token);
@@ -60,23 +60,24 @@ const Register = () => {
             axiosSecure
               .post("/users", newUser)
               .then((res) => {
-                console.log("User Saved to DB", res.data);
-                setUser(newUser);
-                setLoading(false);
-                // Show success alert/toast
+                if (res?.data?.insertedId) {
+                  toast.success("Account Created Success!");
+                  setUser(newUser);
+                  setLoading(false);
+                }
               })
               .catch((err) => {
-                console.error("Error saving user to DB:", err);
+                toast.error("Error saving user to DB:", err);
                 setLoading(false);
               });
           })
           .catch((error) => {
-            console.error("Profile update error:", error);
+            toast.error("Profile update error:", error);
             setLoading(false);
           });
       })
       .catch((err) => {
-        console.error("Auth Error:", err);
+        toast.error("Auth Error:", err);
         setLoading(false);
       });
   };
@@ -87,7 +88,9 @@ const Register = () => {
 
   return (
     <div className="w-full md:max-w-sm">
-      <h2 className="text-xl md:text-2xl font-medium md:font-semibold mb-6">Create an Account</h2>
+      <h2 className="text-xl md:text-2xl font-medium md:font-semibold mb-6">
+        Create an Account
+      </h2>
 
       <form
         onSubmit={handleSubmit(handleRegister)}

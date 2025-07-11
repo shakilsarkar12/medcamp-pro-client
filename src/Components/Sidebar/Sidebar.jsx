@@ -13,6 +13,7 @@ import SidebarLink from "../../Shared/SidebarLink";
 import MainLogo from "../../Shared/MainLogo";
 import { useNavigate } from "react-router";
 import useAuth from "../../Utils/Hooks/useAuth";
+import { toast } from "sonner";
 
 const Sidebar = ({ isOpen, setIsOpen }) => {
   const { user, setUser, setLoading, logOutUser } = useAuth();
@@ -23,7 +24,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
       .then(() => {
         setUser(null);
         setLoading(false);
-        alert("Your Account logout Success");
+        toast.success("Your Account logout Success");
         navigate("/login");
         localStorage.removeItem("access-token");
       })

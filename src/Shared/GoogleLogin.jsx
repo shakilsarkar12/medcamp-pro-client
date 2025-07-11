@@ -2,6 +2,7 @@ import React from "react";
 import { FcGoogle } from "react-icons/fc";
 import useAuth from "../Utils/Hooks/useAuth";
 import axiosSecure from "../Utils/axiosSecure";
+import { toast } from "sonner";
 
 const GoogleLogin = () => {
   const { setUser, setLoading, googleLogin } = useAuth();
@@ -9,26 +10,25 @@ const GoogleLogin = () => {
   const handleGoogleLogin = () => {
     googleLogin()
       .then((result) => {
-        console.log("Google login success:",);
+        toast.log("Google login success:");
         const user = result.user;
 
         const displayName = user?.displayName;
-          const email = user?.email;
+        const email = user?.email;
         const photoURL = user?.photoURL;
-        const creationTime = user?.metadata.creationTime;
+        const creationTimeDate = user?.metadata.creationTime;
+        const creationTime = new Date(creationTimeDate).toISOString();
         const phoneNumber = user?.phoneNumber;
         const emailVerified = user?.emailVerified;
 
-        // ✅ Prepare user data
         const saveUser = {
           displayName,
           email,
           phoneNumber,
           photoURL,
           creationTime,
-          emailVerified,
-          role: "participant",
           lastSignInTime: new Date().toISOString(),
+          emailVerified,
         };
 
         axiosSecure
@@ -39,19 +39,16 @@ const GoogleLogin = () => {
               res.data.upsertedId ||
               res.data.message === "User already exists"
             ) {
-              console.log("User saved or already exists in DB");
+              setUser(saveUser);
+              setLoading(false);
             }
           })
           .catch((error) => {
-            console.error("Error saving user:", error);
+            toast.error("Error saving user:", error);
           });
-
-        // Set user and stop loading
-        setUser(loggedUser);
-        setLoading(false);
       })
       .catch((err) => {
-        console.error("Google login failed:", err);
+        toast.error("Google login failed:", err);
         setLoading(false);
       });
   };

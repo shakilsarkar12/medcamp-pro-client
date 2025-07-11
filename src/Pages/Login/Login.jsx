@@ -7,6 +7,7 @@ import GoogleLogin from "../../Shared/GoogleLogin";
 import { Link, Navigate, useLocation } from "react-router";
 import useAuth from "../../Utils/Hooks/useAuth";
 import axiosSecure from "../../Utils/axiosSecure";
+import { toast } from "sonner";
 
 const Login = () => {
   const { user, setUser, setLoading, loginWithEmail } = useAuth();
@@ -40,34 +41,32 @@ const Login = () => {
               axiosSecure
                 .patch(`/users/last-login/${email}`, { lastLogin })
                 .then(() => {
-                  console.log("Login Success");
+                  toast.success("Login Success");
+                  setUser(dbUser);
                 })
                 .catch((err) => {
-                  console.error("Failed to update lastLogin:", err);
+                  toast.error("Failed to update lastLogin:", err);
                 });
-
-              setUser(dbUser);
-              console.log("User logged in:", dbUser);
             } else {
-              console.warn("User not found in DB");
+              toast.warn("User not found in DB");
             }
 
             setLoading(false);
           })
           .catch((err) => {
-            console.error("Error fetching user from DB:", err);
+            console.log(err);
+            toast.error("Error fetching user from DB: " + err.message);
             setLoading(false);
           });
       })
       .catch((err) => {
-        console.error("Login error:", err);
-        alert("Login failed. Please check your credentials.");
+        toast.error("Login failed. Please check your credentials." , err.message);
         setLoading(false);
       });
   };
 
   if (user) {
-    return <Navigate to={location?.state || "/" } />;
+    return <Navigate to={location?.state || "/"} />;
   }
 
   return (
