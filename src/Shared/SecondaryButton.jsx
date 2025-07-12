@@ -6,11 +6,13 @@ const SecondaryButton = ({
   py = "py-2",
   onClick = () => {},
   className = "",
+  uploading
 }) => {
   return (
     <button
       onClick={onClick}
-      className={`bg-[#2D91EF] text-white ${px} ${py} rounded-md ${className} cursor-pointer`}
+      disabled={uploading}
+      className={`bg-[#2D91EF] text-white ${px} ${py} rounded-md ${className} cursor-pointer ${uploading? "":""} disabled:bg-gray-400 disabled:cursor-not-allowed`}
     >
       {text}
     </button>
