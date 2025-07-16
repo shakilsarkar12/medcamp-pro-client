@@ -1,21 +1,35 @@
 import React from "react";
+import { Link } from "react-router";
 
 const PrimaryButton = ({
-  text = "primary",
   px = "px-4",
   py = "py-2",
   onClick = () => {},
+  to,
   className = "",
-  type = "button"
+  type = "button",
+  children,
 }) => {
+  if (!to) {
+    return (
+      <button
+        onClick={onClick}
+        type={type}
+        className={`bg-[#01BF68] text-white ${px} ${py} rounded-md ${className} cursor-pointer`}
+      >
+        {children ? children : "Primary"}
+      </button>
+    );
+  }
   return (
-    <button
+    <Link
+      to={to}
       onClick={onClick}
       type={type}
       className={`bg-[#01BF68] text-white ${px} ${py} rounded-md ${className} cursor-pointer`}
     >
-      {text}
-    </button>
+      {children ? children : "Primary"}
+    </Link>
   );
 };
 

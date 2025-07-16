@@ -19,6 +19,7 @@ import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory";
 import RegisteredCamps from "../Pages/RegisteredCamps/RegisteredCamps";
 import ParticipantProfile from "../Pages/ParticipantProfile/ParticipantProfile";
 import PrivateRoute from "../Private/PrivateRoute";
+import CampDetails from "../Pages/CampDetails/CampDetails";
 
 export const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ export const router = createBrowserRouter([
       {
         path: "/available-camps",
         Component: AvailableCamps,
+      },
+      {
+        path: "/camp-details/:id",
+        Component: CampDetails,
       },
       {
         path: "/join-us",
