@@ -1,10 +1,11 @@
 import React from "react";
 import CommingSoon from "../../Shared/CommingSoon";
+import BannerSlider from "./BannerSlider";
 
 const Home = () => {
   return (
     <div>
-      <CommingSoon />
+      <BannerSlider/>
     </div>
   );
 };
