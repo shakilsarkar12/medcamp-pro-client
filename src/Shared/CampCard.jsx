@@ -11,6 +11,7 @@ import {
 } from "react-icons/fa";
 import SecondaryButton from "./SecondaryButton";
 import PrimaryButton from "./PrimaryButton";
+import { BsArrowUpRight } from "react-icons/bs";
 
 const CampCard = ({ camp }) => {
   const {
@@ -72,20 +73,11 @@ const CampCard = ({ camp }) => {
             to={`/camp-details/${_id}`}
             className="inline-flex items-center text-sm sm:text-base"
           >
-            See Details
-            <svg
-              className="w-4 h-4 ml-2"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M5 12h14" />
-              <path d="M12 5l7 7-7 7" />
-            </svg>
-          </PrimaryButton>
+            Details
+            <BsArrowUpRight
+              className="ml-2"/>
+
+</PrimaryButton>
           <SecondaryButton className="text-sm sm:text-base">
             Join Camp
           </SecondaryButton>

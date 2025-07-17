@@ -239,11 +239,9 @@ const AddCamp = () => {
 
         {/* Submit Button */}
         <div className="text-center">
-          <SecondaryButton
-            type="submit"
-            disabled={uploading}
-            text={uploading ? "Uploading..." : "Add Camp"}
-          />
+          <SecondaryButton type="submit" disabled={uploading}>
+            {uploading ? "Uploading..." : "Add Camp"}
+          </SecondaryButton>
         </div>
       </form>
     </div>

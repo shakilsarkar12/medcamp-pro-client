@@ -23,7 +23,9 @@ const navigate = useNavigate()
           <p className="fw-fit md:w-11/12 lg:w-10/12 xl:w-9/12 mx-auto text-sm md:text-base lg:text-lg font-medium opacity-70 text-center mb-6">
             Opps! The page you'r looking for dosen't exist
           </p>
-          <PrimaryButton onClick={() => navigate("/")} text="Back to Home" />
+          <PrimaryButton onClick={() => navigate("/")}>
+            Back to Home
+          </PrimaryButton>
         </div>
       </div>
     </div>

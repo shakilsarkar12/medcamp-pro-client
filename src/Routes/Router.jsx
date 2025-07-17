@@ -20,6 +20,7 @@ import RegisteredCamps from "../Pages/RegisteredCamps/RegisteredCamps";
 import ParticipantProfile from "../Pages/ParticipantProfile/ParticipantProfile";
 import PrivateRoute from "../Private/PrivateRoute";
 import CampDetails from "../Pages/CampDetails/CampDetails";
+import Spinner from "../Shared/Spinner";
 
 export const router = createBrowserRouter([
   {
@@ -38,6 +39,9 @@ export const router = createBrowserRouter([
       {
         path: "/camp-details/:id",
         Component: CampDetails,
+        hydrateFallbackElement: <Spinner />,
+        loader: ({ params }) =>
+          fetch(`${import.meta.env.VITE_API_URL}/camp-details/${params.id}`),
       },
       {
         path: "/join-us",

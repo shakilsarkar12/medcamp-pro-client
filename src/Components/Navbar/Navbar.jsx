@@ -44,16 +44,19 @@ const Navbar = () => {
         {/* Desktop Auth Buttons */}
         {!user && (
           <div className="hidden lg:flex items-center gap-4">
-            <PrimaryButton text="Log in" onClick={() => navigate("/login")} />
-            <SecondaryButton
-              text="Register"
-              onClick={() => navigate("/register")}
-            />
+            <PrimaryButton onClick={() => navigate("/login")}>
+              Log in
+            </PrimaryButton>
+            <SecondaryButton onClick={() => navigate("/register")}>
+              Register
+            </SecondaryButton>
           </div>
         )}
         {user && (
           <div className="hidden lg:flex items-center gap-4">
-            <PrimaryButton text="Log Out" onClick={() => handleLogOut()} />
+            <PrimaryButton onClick={() => handleLogOut()}>
+              Log Out
+            </PrimaryButton>
             <Link to="/participant-profile">
               <img
                 referrerPolicy="no-referrer"

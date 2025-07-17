@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router";
 import axios from "axios";
 import { FaList, FaTh } from "react-icons/fa";
 import HeadingTitle from "../../Shared/HeadingTitle";
 import CampCard from "../../Shared/CampCard";
+import Spinner from "../../Shared/Spinner";
 
 const AvailableCamps = () => {
   const [camps, setCamps] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOption, setSortOption] = useState("");
   const [gridCols, setGridCols] = useState(3);
@@ -14,8 +15,13 @@ const AvailableCamps = () => {
   useEffect(() => {
     axios.get(`${import.meta.env.VITE_API_URL}/camps`).then((res) => {
       setCamps(res.data);
+      setLoading(false);
     });
   }, []);
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   const filteredCamps = camps
     .filter((camp) => {
@@ -78,7 +84,7 @@ const AvailableCamps = () => {
       </div>
 
       {/* Grid of Camps */}
-      <div className={`grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6`}>
+      <div className={`grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4`}>
         {filteredCamps.map((camp) => (
           <CampCard key={camp._id} camp={camp} />
         ))}

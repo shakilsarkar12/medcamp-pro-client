@@ -103,14 +103,16 @@ const SideNavbar = ({ isOpen, onClose, onLogout }) => {
             <div className="flex flex-col items-center gap-4">
               <PrimaryButton
                 className="w-full"
-                text="Log in"
                 onClick={() => navigate("/login")}
-              />
+              >
+                Log in
+              </PrimaryButton>
               <SecondaryButton
                 className="w-full"
-                text="Register"
                 onClick={() => navigate("/register")}
-              />
+              >
+                Register
+              </SecondaryButton>
             </div>
           )}
         </div>

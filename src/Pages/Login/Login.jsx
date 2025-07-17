@@ -105,7 +105,9 @@ const Login = () => {
           )}
         </div>
 
-        <PrimaryButton type="submit" className="w-full" text="Log in" />
+        <PrimaryButton type="submit" className="w-full">
+          Log in
+        </PrimaryButton>
       </form>
 
       <Divider>or</Divider>

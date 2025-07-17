@@ -185,7 +185,9 @@ const Register = () => {
           )}
         </div>
 
-        <PrimaryButton type="submit" className="w-full" text="Register" />
+        <PrimaryButton type="submit" className="w-full">
+          Register
+        </PrimaryButton>
       </form>
 
       <Divider>or</Divider>
