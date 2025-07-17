@@ -10,7 +10,7 @@ const GoogleLogin = () => {
   const handleGoogleLogin = () => {
     googleLogin()
       .then((result) => {
-        toast.log("Google login success:");
+        toast.success("Google login success:");
         const user = result.user;
 
         const displayName = user?.displayName;
@@ -44,11 +44,13 @@ const GoogleLogin = () => {
             }
           })
           .catch((error) => {
-            toast.error("Error saving user:", error);
+            console.error(error);
+            toast.error("Error saving user !");
           });
       })
       .catch((err) => {
-        toast.error("Google login failed:", err);
+        console.error(err);
+        toast.error("Google login failed !");
         setLoading(false);
       });
   };

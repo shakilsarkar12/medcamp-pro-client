@@ -6,6 +6,7 @@ import PrimaryButton from "../../Shared/PrimaryButton";
 import SecondaryButton from "../../Shared/SecondaryButton";
 import SideNavbar from "./SideNavbar";
 import useAuth from "../../Utils/Hooks/useAuth";
+import { toast } from "sonner";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ const Navbar = () => {
       .then(() => {
         setUser(null);
         setLoading(false);
-        alert("Your Account logout Success");
+        toast.success("Your Account logout Success");
         localStorage.removeItem("access-token");
       })
       .catch((err) => {
