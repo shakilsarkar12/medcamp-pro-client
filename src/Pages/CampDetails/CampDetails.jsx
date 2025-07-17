@@ -19,9 +19,8 @@ const CampDetails = () => {
     fees,
     scheduledDate,
     scheduledTime,
-    venueLocation,
+    location,
     specializedServices,
-    targetAudience,
     description,
     participantCount,
     professionalsAttendanceCount,
@@ -51,7 +50,7 @@ const CampDetails = () => {
           </div>
           <div className="flex items-center gap-2">
             <LuMapPin className="text-lg" />
-            <span>{venueLocation}</span>
+            <span>{location}</span>
           </div>
           <div className="flex items-center gap-2">
             <MdPeopleAlt className="text-lg" />
@@ -60,10 +59,6 @@ const CampDetails = () => {
           <div className="flex items-center gap-2">
             <RiUser2Fill className="text-lg" />
             <span>Professionals: {professionalsAttendanceCount}</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <MdOutlineHealthAndSafety className="text-lg" />
-            <span>Audience: {targetAudience}</span>
           </div>
           <div className="flex items-center gap-2">
             <span className="font-medium">Fees:</span>

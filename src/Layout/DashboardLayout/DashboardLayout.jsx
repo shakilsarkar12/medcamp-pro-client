@@ -26,7 +26,7 @@ const DashboardLayout = () => {
         </header>
 
         {/* Main content */}
-        <div className="bg-gray-50 overflow-y-auto h-full">
+        <div className="bg-gray-50 overflow-y-auto h-full px-4">
           <Outlet />
         </div>
       </div>
