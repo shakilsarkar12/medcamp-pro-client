@@ -26,11 +26,13 @@ const CampCard = ({ camp }) => {
 
   return (
     <div className="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden flex flex-col">
-      <img
-        className="lg:h-60 md:h-36 w-full object-cover object-center"
-        src={image}
-        alt={campName}
-      />
+      <div className="lg:h-60 md:h-36 h-48">
+        <img
+          className="h-full w-full object-cover"
+          src={image}
+          alt={campName}
+        />
+      </div>
       <div className="flex-1 p-3 flex flex-col justify-between">
         <h2 className="flex items-center tracking-widest text-sm font-medium text-gray-400 mb-1">
           <FaMapMarkerAlt className="mr-2" />
