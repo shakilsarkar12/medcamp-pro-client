@@ -8,13 +8,14 @@ const SecondaryButton = ({
   uploading,
   type = "button",
   children,
+  disabled = false,
 }) => {
   return (
     <button
+      disabled={disabled}
       type={type}
       onClick={onClick}
-      disabled={uploading}
-      className={`bg-[#2D91EF] text-white ${px} ${py} rounded-md ${className} cursor-pointer ${
+      className={`bg-[#2D91EF] text-white ${px} ${py} rounded-md ${className} cursor-pointer disabled:cursor-not-allowed ${
         uploading ? "" : ""
       } disabled:bg-gray-400 disabled:cursor-not-allowed`}
     >

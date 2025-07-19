@@ -17,7 +17,13 @@ const CampDetails = () => {
   const campFromLoader = useLoaderData();
   const { user } = useAuth();
   const navigate = useNavigate();
-  const [isModalOpen, setIsModalOpen] = useState(false);
+    let [isOpen, setIsOpen] = useState(false);
+
+    const open=()=> {
+      setIsOpen(true);
+    }
+
+
 
   const { data: camp, refetch: refetchCamp } = useQuery({
     queryKey: ["camp", campFromLoader._id],
@@ -47,13 +53,18 @@ const CampDetails = () => {
   } = camp;
 
   const handleJoinCamp = () => {
-    if (user?.role === "organizer") {
+    
+    if (!user || !user?.email) {
+      toast.error("Please log in to join the camp.");
+      navigate("/login");
+     }else if (user?.role === "organizer") {
       toast.info("Organizers cannot join camps.");
     } else if (user?.role === "participant") {
       if (participantEmails?.includes(user?.email)) {
         toast.info("You have already registered for this camp.");
       } else {
-        setIsModalOpen(true);
+        setIsOpen(true);
+        
       }
     }
   };
@@ -125,17 +136,18 @@ const CampDetails = () => {
           </PrimaryButton>
 
           <SecondaryButton
+            disabled={ participantEmails?.includes(user?.email)}
             onClick={() => handleJoinCamp()}
             className="text-sm sm:text-base"
           >
-            Join Camp
+            {participantEmails?.includes(user?.email)? "Aleardy Join": "Join Camp"}
           </SecondaryButton>
         </div>
       </div>
         {/* Modal */}
         <JoinCampModal
-          isOpen={isModalOpen}
-          closeModal={() => setIsModalOpen(false)}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
           camp={camp}
           refetchCamp={refetchCamp}
         />
