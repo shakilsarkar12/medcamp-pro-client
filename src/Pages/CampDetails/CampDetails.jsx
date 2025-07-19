@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useLoaderData, useNavigate } from "react-router";
 import { LuCalendarDays, LuClock, LuMapPin } from "react-icons/lu";
 import { MdPeopleAlt, MdOutlineHealthAndSafety } from "react-icons/md";
@@ -6,13 +7,31 @@ import PrimaryButton from "../../Shared/PrimaryButton";
 import SecondaryButton from "../../Shared/SecondaryButton";
 import { BiArrowBack } from "react-icons/bi";
 import HeadingTitle from "../../Shared/HeadingTitle";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import JoinCampModal from "../../Components/JoinCampModal/JoinCampModal";
+import useAuth from "../../Utils/Hooks/useAuth";
+import { toast } from "sonner";
 
 const CampDetails = () => {
-  const camp = useLoaderData();
+  const campFromLoader = useLoaderData();
+  const { user } = useAuth();
   const navigate = useNavigate();
-  if (!camp) {
-    return <h1>No Data Fount</h1>;
-  }
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const { data: camp, refetch: refetchCamp } = useQuery({
+    queryKey: ["camp", campFromLoader._id],
+    queryFn: async () => {
+      const res = await axios.get(
+        `${import.meta.env.VITE_API_URL}/camp-details/${campFromLoader._id}`
+      );
+      return res.data;
+    },
+    initialData: campFromLoader,
+  });
+
+  if (!camp) return <h1>No Data Found</h1>;
+
   const {
     campName,
     image,
@@ -24,7 +43,20 @@ const CampDetails = () => {
     description,
     participantCount,
     professionalsAttendanceCount,
+    participantEmails,
   } = camp;
+
+  const handleJoinCamp = () => {
+    if (user?.role === "organizer") {
+      toast.info("Organizers cannot join camps.");
+    } else if (user?.role === "participant") {
+      if (participantEmails?.includes(user?.email)) {
+        toast.info("You have already registered for this camp.");
+      } else {
+        setIsModalOpen(true);
+      }
+    }
+  };
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
@@ -92,11 +124,21 @@ const CampDetails = () => {
             Back
           </PrimaryButton>
 
-          <SecondaryButton className="text-sm sm:text-base">
+          <SecondaryButton
+            onClick={() => handleJoinCamp()}
+            className="text-sm sm:text-base"
+          >
             Join Camp
           </SecondaryButton>
         </div>
       </div>
+        {/* Modal */}
+        <JoinCampModal
+          isOpen={isModalOpen}
+          closeModal={() => setIsModalOpen(false)}
+          camp={camp}
+          refetchCamp={refetchCamp}
+        />
     </div>
   );
 };

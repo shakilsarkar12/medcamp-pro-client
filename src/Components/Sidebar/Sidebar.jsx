@@ -64,18 +64,22 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
           icon={FiClipboard}
           label="Registered Camps"
         />
-        <SidebarLink
-          setIsOpen={setIsOpen}
-          to="/payment-history"
-          icon={FiCreditCard}
-          label="Payment History"
-        />
-        <SidebarLink
-          setIsOpen={setIsOpen}
-          to="/add-camp"
-          icon={FiCalendar}
-          label="Add A Camp"
-        />
+        {user?.role === "participant" && (
+          <SidebarLink
+            setIsOpen={setIsOpen}
+            to="/payment-history"
+            icon={FiCreditCard}
+            label="Payment History"
+          />
+        )}
+        {user?.role === "organizer" && (
+          <SidebarLink
+            setIsOpen={setIsOpen}
+            to="/add-camp"
+            icon={FiCalendar}
+            label="Add A Camp"
+          />
+        )}
         <SidebarLink
           setIsOpen={setIsOpen}
           to="/manage-camps"

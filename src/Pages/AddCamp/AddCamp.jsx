@@ -68,6 +68,7 @@ const AddCamp = () => {
 
       const campData = {
         campName: data.campName,
+        healthcareProfessional: data.doctor,
         image: imageURL,
         fees: parseFloat(data.fees),
         scheduledDate: data.scheduledDate.toISOString().split("T")[0],
@@ -86,6 +87,7 @@ const AddCamp = () => {
         professionalsAttendanceCount: 0,
         participantCount: 0,
         createdBy: user?.email || "anonymous",
+        location: data.location,
       };
 
       //  Save to DB

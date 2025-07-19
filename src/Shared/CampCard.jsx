@@ -60,7 +60,7 @@ const CampCard = ({ camp }) => {
           </div>
         </div>
 
-        <div className="flex justify-between items-center pt-5">
+        <div className="flex justify-end items-center pt-5">
           <PrimaryButton
             to={`/camp-details/${_id}`}
             className="inline-flex items-center text-sm sm:text-base"
@@ -68,9 +68,7 @@ const CampCard = ({ camp }) => {
             Details
             <BsArrowUpRight className="ml-2" />
           </PrimaryButton>
-          <SecondaryButton className="text-sm sm:text-base">
-            Join Camp
-          </SecondaryButton>
+         
         </div>
       </div>
     </div>
