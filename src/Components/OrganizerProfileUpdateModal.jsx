@@ -66,13 +66,11 @@ const OrganizerProfileUpdateModal = ({ isOpen, onClose, loading, setLoading }) =
     };
 
     try {
-      await axios.put(
-        `${import.meta.env.VITE_API_URL}/user/${user.email}`,
-        updatedUser
-      );
+      await axios.put(`http://localhost:3000/user?email=${user.email}`, updatedUser);
       setUser((prev) => ({ ...prev, ...updatedUser }));
       onClose();
       setLoading(false);
+      toast.success("Profile updated successfully!");
     } catch (error) {
       setLoading(false);
       toast.error("Failed to update profile. Please try again.");

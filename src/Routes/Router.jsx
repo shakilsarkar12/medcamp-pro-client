@@ -21,6 +21,8 @@ import ParticipantProfile from "../Pages/ParticipantProfile/ParticipantProfile";
 import PrivateRoute from "../Private/PrivateRoute";
 import CampDetails from "../Pages/CampDetails/CampDetails";
 import Spinner from "../Shared/Spinner";
+import UserRoleParticipent from "../Private/UserRoleParticipent";
+import UserRoleOrganizer from "../Private/UserRoleOrganizer";
 
 export const router = createBrowserRouter([
   {
@@ -67,7 +69,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "participant-profile",
-        Component: ParticipantProfile,
+        element: (
+          <UserRoleParticipent>
+            <ParticipantProfile />
+          </UserRoleParticipent>
+        ),
       },
       {
         path: "registered-camps",
@@ -79,7 +85,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "organizer-profile",
-        Component: OrganizerProfile,
+        element: (
+          <UserRoleOrganizer>
+            <OrganizerProfile />
+          </UserRoleOrganizer>
+        ),
       },
       {
         path: "add-camp",
