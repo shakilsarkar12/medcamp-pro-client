@@ -11,7 +11,7 @@ import { IoEye, IoEyeOff } from "react-icons/io5";
 import { toast } from "sonner";
 
 const Register = () => {
-  const { user, setUser, setLoading, registerWithEmail } = useAuth();
+  const { user, setUser, loading, setLoading, registerWithEmail } = useAuth();
   const [showPass, setShowPass] = useState(false);
   const {
     register,
@@ -186,7 +186,7 @@ const Register = () => {
         </div>
 
         <PrimaryButton type="submit" className="w-full">
-          Register
+          {loading ? "Creating Account..." : "Create Account"}
         </PrimaryButton>
       </form>
 

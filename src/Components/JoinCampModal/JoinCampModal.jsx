@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../../Utils/Hooks/useAuth";
 import axios from "axios";
@@ -9,6 +9,7 @@ import { toast } from "sonner";
 
 
 const JoinCampModal = ({ isOpen, setIsOpen, camp, refetchCamp }) => {
+  const [loading, setLoading] = useState(false);
   const { user } = useAuth();
   const {
     register,
@@ -19,6 +20,7 @@ const JoinCampModal = ({ isOpen, setIsOpen, camp, refetchCamp }) => {
 
 
   const onSubmit = async (data) => {
+    setLoading(true);
     const registrationData = {
       ...data,
       campId: camp._id,
@@ -34,22 +36,28 @@ const JoinCampModal = ({ isOpen, setIsOpen, camp, refetchCamp }) => {
     try {
       // Save participant registration
       await axios.post(
-        `http://localhost:3000/camp-registrations`,
+        `${import.meta.env.VITE_API_URL}/camp-registrations`,
         registrationData
       );
 
       //   Update participant count
-      await axios.patch(`http://localhost:3000/camps/increment-participants`, {
-        campId: camp._id,
-        email: user?.email,
-      });
+      await axios.patch(
+        `${import.meta.env.VITE_API_URL}/camps/increment-participants`,
+        {
+          campId: camp._id,
+          email: user?.email,
+        }
+      );
 
+      setLoading(false);
       toast.success("Successfully registered for the camp!");
       refetchCamp();
       setIsOpen(false);
       reset();
     } catch (err) {
       console.error("Failed to register:", err);
+      setLoading(false);
+      toast.error("Failed to register for the camp. Please try again.");
     }
   };
 
@@ -184,7 +192,7 @@ const JoinCampModal = ({ isOpen, setIsOpen, camp, refetchCamp }) => {
                     Cancel
                   </PrimaryButton>
                   <SecondaryButton type="submit" className="w-full">
-                    Join
+                    {loading ? "Joining..." : "Join Camp"}
                   </SecondaryButton>
                 </div>
               </div>
