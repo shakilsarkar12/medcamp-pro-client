@@ -14,9 +14,7 @@ const ManageRegisteredCamps = () => {
     queryKey: ["camp-registrations", currentPage],
     queryFn: async () => {
       const res = await axiosSecure.get(
-        `${
-          import.meta.env.VITE_API_URL
-        }/camp-registrations?page=${currentPage}&limit=${itemsPerPage}`
+        `/camp-registrations?page=${currentPage}&limit=${itemsPerPage}`
       );
       return res.data;
     },
@@ -40,9 +38,7 @@ const ManageRegisteredCamps = () => {
     }
     if (confirmationStatus === "Confirmed") return;
     try {
-      await axiosSecure.patch(
-        `${import.meta.env.VITE_API_URL}/camp-registrations/${_id}/confirm`
-      );
+      await axiosSecure.patch(`/camp-registrations/${_id}/confirm`);
       toast.success("Registration confirmed successfully!");
       refetch();
     } catch (err) {
@@ -67,11 +63,7 @@ const ManageRegisteredCamps = () => {
     if (result.isConfirmed) {
       try {
         await axiosSecure.delete(
-          `${
-            import.meta.env.VITE_API_URL
-          }/delete-registrations?id=${_id}&campID=${
-            registration.campId
-          }&email=${registration.participantEmail}`
+          `/delete-registrations?id=${_id}&campID=${registration.campId}&email=${registration.participantEmail}`
         );
         Swal.fire({
           title: "Deleted!",

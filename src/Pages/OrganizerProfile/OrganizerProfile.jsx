@@ -18,7 +18,7 @@ const OrganizerProfile = () => {
     const fetchCampCount = async () => {
       try {
         const res = await axios.get(
-          `${import.meta.env.VITE_API_URL}/camps/count?email=${user?.email}`
+          `http://localhost:3000/camps/count?email=${user?.email}&role=${user?.role}`
         );
         setLoading(false);
         setCampCount(res.data.count || 0);
@@ -44,7 +44,7 @@ const OrganizerProfile = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto p-6 bg-white rounded-xl shadow-md">
+    <div className="max-w-3xl mx-auto p-4 bg-white rounded-xl shadow mt-12">
       <div className="flex items-center gap-6 mb-6">
         <img
           referrerPolicy="no-referrer"
@@ -68,15 +68,15 @@ const OrganizerProfile = () => {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-        <div className="bg-blue-50 p-4 rounded-lg text-center shadow-sm">
+        <div className="bg-gray-100 p-4 rounded-lg text-center">
           <p className="text-gray-600 mb-1">Total Camps Organized</p>
-          <p className="text-xl font-bold text-blue-600">{campCount}</p>
+          <p className="text-xl font-bold text-[#2D91EF]">{campCount}</p>
         </div>
-        <div className="bg-green-50 p-4 rounded-lg text-center shadow-sm">
+        <div className="bg-gray-100 p-4 rounded-lg text-center">
           <p className="text-gray-600 mb-1 flex items-center justify-center gap-1">
             <FaCalendarAlt /> Joined On
           </p>
-          <p className="text-xl font-medium text-green-600">
+          <p className="text-xl font-medium text-[#2D91EF]">
             {user?.creationTime ? formatDate(user.creationTime) : "N/A"}
           </p>
         </div>

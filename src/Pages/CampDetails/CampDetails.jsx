@@ -8,10 +8,10 @@ import SecondaryButton from "../../Shared/SecondaryButton";
 import { BiArrowBack } from "react-icons/bi";
 import HeadingTitle from "../../Shared/HeadingTitle";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import JoinCampModal from "../../Components/JoinCampModal/JoinCampModal";
 import useAuth from "../../Utils/Hooks/useAuth";
 import { toast } from "sonner";
+import axiosSecure from "../../Utils/axiosSecure";
 
 const CampDetails = () => {
   const campFromLoader = useLoaderData();
@@ -22,8 +22,8 @@ const CampDetails = () => {
   const { data: camp, refetch: refetchCamp } = useQuery({
     queryKey: ["camp", campFromLoader._id],
     queryFn: async () => {
-      const res = await axios.get(
-        `${import.meta.env.VITE_API_URL}/camp-details/${campFromLoader._id}`
+      const res = await axiosSecure.get(
+        `/camp-details/${campFromLoader._id}`
       );
       return res.data;
     },

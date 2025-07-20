@@ -17,16 +17,13 @@ const ManageCamps = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["organizer-camps", user?.email, currentPage],
     queryFn: async () => {
-      const res = await axiosSecure.get(
-        `${import.meta.env.VITE_API_URL}/camps/organizer`,
-        {
-          params: {
-            email: user?.email,
-            page: currentPage,
-            limit: itemsPerPage,
-          },
-        }
-      );
+      const res = await axiosSecure.get(`/camps/organizer`, {
+        params: {
+          email: user?.email,
+          page: currentPage,
+          limit: itemsPerPage,
+        },
+      });
       return res.data;
     },
     enabled: !!user?.email,
@@ -44,9 +41,7 @@ const ManageCamps = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await axiosSecure.delete(
-            `${import.meta.env.VITE_API_URL}/delete-camp/${id}`
-          );
+          await axiosSecure.delete(`/delete-camp/${id}`);
           Swal.fire({
             title: "Deleted!",
             text: "Camp deleted successfully!",

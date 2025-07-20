@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import PrimaryButton from "../../Shared/PrimaryButton";
@@ -8,9 +8,11 @@ import { Link, Navigate, useLocation } from "react-router";
 import useAuth from "../../Utils/Hooks/useAuth";
 import axiosSecure from "../../Utils/axiosSecure";
 import { toast } from "sonner";
+import { IoEye, IoEyeOff } from "react-icons/io5";
 
 const Login = () => {
-  const { user, setUser, setLoading, loginWithEmail } = useAuth();
+  const { user, setUser, loading, setLoading, loginWithEmail } = useAuth();
+  const [showPass, setShowPass] = useState(false);
   const location = useLocation();
   const {
     register,
@@ -60,7 +62,10 @@ const Login = () => {
           });
       })
       .catch((err) => {
-        toast.error("Login failed. Please check your credentials." , err.message);
+        toast.error(
+          "Login failed. Please check your credentials.",
+          err.message
+        );
         setLoading(false);
       });
   };
@@ -92,12 +97,23 @@ const Login = () => {
         {/* Password */}
         <div className="flex flex-col gap-2">
           <label>Password</label>
-          <input
-            type="password"
-            {...register("password", { required: "password is required" })}
-            placeholder="Enter Password"
-            className="border border-[#2D91EF] rounded-md px-3 py-1.5 focus:outline-[#2D91EF] w-full placeholder:text-sm"
-          />
+          <div className="relative">
+            <input
+              type={showPass ? "text" : "password"}
+              {...register("password", { required: "password is required" })}
+              placeholder="Enter Password"
+              className="border border-[#2D91EF] rounded-md px-3 py-1.5 focus:outline-[#2D91EF] w-full placeholder:text-sm pr-10"
+            />
+            <span
+              className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-xl text-gray-500"
+              onClick={() => setShowPass((prev) => !prev)}
+              tabIndex={0}
+              role="button"
+              aria-label={showPass ? "Hide password" : "Show password"}
+            >
+              {showPass ? <IoEyeOff /> : <IoEye />}
+            </span>
+          </div>
           {errors?.password?.type === "required" && (
             <span className="text-red-500 text-xs">
               {errors?.password?.message}
@@ -106,7 +122,7 @@ const Login = () => {
         </div>
 
         <PrimaryButton type="submit" className="w-full">
-          Log in
+          {loading ? "Logging in..." : "Login"}
         </PrimaryButton>
       </form>
 
