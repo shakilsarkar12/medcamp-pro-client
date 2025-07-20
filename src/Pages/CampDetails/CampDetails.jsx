@@ -19,12 +19,6 @@ const CampDetails = () => {
   const navigate = useNavigate();
     let [isOpen, setIsOpen] = useState(false);
 
-    const open=()=> {
-      setIsOpen(true);
-    }
-
-
-
   const { data: camp, refetch: refetchCamp } = useQuery({
     queryKey: ["camp", campFromLoader._id],
     queryFn: async () => {

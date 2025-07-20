@@ -52,18 +52,22 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
           icon={FiHome}
           label="Overview"
         />
-        <SidebarLink
-          setIsOpen={setIsOpen}
-          to="/analytics"
-          icon={FiBarChart2}
-          label="Analytics"
-        />
-        <SidebarLink
-          setIsOpen={setIsOpen}
-          to="/registered-camps"
-          icon={FiClipboard}
-          label="Registered Camps"
-        />
+        {user?.role === "participant" && (
+          <SidebarLink
+            setIsOpen={setIsOpen}
+            to="/analytics"
+            icon={FiBarChart2}
+            label="Analytics"
+          />
+        )}
+        {user?.role === "participant" && (
+          <SidebarLink
+            setIsOpen={setIsOpen}
+            to="/registered-camps"
+            icon={FiClipboard}
+            label="Registered Camps"
+          />
+        )}
         {user?.role === "participant" && (
           <SidebarLink
             setIsOpen={setIsOpen}
@@ -80,35 +84,43 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
             label="Add A Camp"
           />
         )}
-        <SidebarLink
-          setIsOpen={setIsOpen}
-          to="/manage-camps"
-          icon={FiList}
-          label="Manage Camps"
-        />
-        <SidebarLink
-          setIsOpen={setIsOpen}
-          to="/manage-registered"
-          icon={FiUsers}
-          label="Manage Registered Camps"
-        />
+        {user?.role === "organizer" && (
+          <SidebarLink
+            setIsOpen={setIsOpen}
+            to="/manage-camps"
+            icon={FiList}
+            label="Manage Camps"
+          />
+        )}
+        {user?.role === "organizer" && (
+          <SidebarLink
+            setIsOpen={setIsOpen}
+            to="/manage-registered"
+            icon={FiUsers}
+            label="Manage Registered Camps"
+          />
+        )}
       </nav>
 
       {/* Logout */}
       <div className="px-4 py-4 border-t border-gray-200">
-        <SidebarLink
-          setIsOpen={setIsOpen}
-          to="/participant-profile"
-          icon={FiUser}
-          label="Participant Profile"
-        />
+        {user?.role === "participant" && (
+          <SidebarLink
+            setIsOpen={setIsOpen}
+            to="/participant-profile"
+            icon={FiUser}
+            label="Participant Profile"
+          />
+        )}
 
-        <SidebarLink
-          setIsOpen={setIsOpen}
-          to="/organizer-profile"
-          icon={FiUser}
-          label="Organizer Profile"
-        />
+        {user?.role === "organizer" && (
+          <SidebarLink
+            setIsOpen={setIsOpen}
+            to="/organizer-profile"
+            icon={FiUser}
+            label="Organizer Profile"
+          />
+        )}
         <button
           onClick={handleLogOut}
           className="w-full flex items-center gap-2 justify-center px-4 py-2 text-white rounded bg-red-600 transition mt-4"

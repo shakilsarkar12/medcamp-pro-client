@@ -68,7 +68,7 @@ const ManageCamps = () => {
 
   return (
     <div className="md:px-4 mt-6">
-      <h2 className="text-2xl font-medium text-center mb-6 text-blue-600">
+      <h2 className="text-2xl font-medium text-center mb-6 text-[#2D91EF]">
         Manage Your Camps
       </h2>
 
