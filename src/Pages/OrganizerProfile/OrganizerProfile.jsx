@@ -1,37 +1,40 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import useAuth from "../../Utils/Hooks/useAuth";
 import OrganizerProfileUpdateModal from "../../Components/OrganizerProfileUpdateModal";
 import { FaEdit, FaLock, FaCalendarAlt } from "react-icons/fa";
 import { MdEmail, MdPhone } from "react-icons/md";
-import axios from "axios";
 import SecondaryButton from "../../Shared/SecondaryButton";
 import PrimaryButton from "../../Shared/PrimaryButton";
 import Spinner from "../../Shared/Spinner";
+import axiosSecure from "../../Utils/axiosSecure";
+import { useQuery } from '@tanstack/react-query';
 
 const OrganizerProfile = () => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
   const { user } = useAuth();
-  const [campCount, setCampCount] = useState(0);
 
-  useEffect(() => {
-    const fetchCampCount = async () => {
-      try {
-        const res = await axios.get(
-          `http://localhost:3000/camps/count?email=${user?.email}&role=${user?.role}`
-        );
-        setLoading(false);
-        setCampCount(res.data.count || 0);
-      } catch (err) {
-        console.error("Failed to fetch camp count", err);
-      }
-    };
+  const {
+    data: campCount,
+    isLoading,
+    isError,
+    error
+  } = useQuery({
+    queryKey: ["organizerCampCount", user?.email, user?.role],
+    enabled: !!user?.email,
+    queryFn: async () => {
+      const res = await axiosSecure.get(
+        `/camps/count?email=${user?.email}&role=${user?.role}`
+      );
+      return res.data.count || 0;
+    },
+    staleTime: 1000 * 60 * 2, // 2 minutes
+  });
 
-    if (user?.email) fetchCampCount();
-  }, [user]);
-
-  if (loading) {
+  if (isLoading) {
     return <Spinner />;
+  }
+  if (isError) {
+    return <div className="text-red-500 text-center py-8">Failed to load camp count: {error?.message}</div>;
   }
 
   const formatDate = (dateStr) => {
@@ -102,8 +105,6 @@ const OrganizerProfile = () => {
         <OrganizerProfileUpdateModal
           isOpen={modalOpen}
           onClose={() => setModalOpen(false)}
-          loading={loading}
-          setLoading={setLoading}
         />
       )}
     </div>

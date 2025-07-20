@@ -3,11 +3,11 @@ import useAuth from "../../Utils/Hooks/useAuth";
 import OrganizerProfileUpdateModal from "../../Components/OrganizerProfileUpdateModal";
 import { FaEdit, FaLock, FaCalendarAlt } from "react-icons/fa";
 import { MdEmail, MdPhone } from "react-icons/md";
-import axios from "axios";
 import { useQuery } from '@tanstack/react-query';
 import SecondaryButton from "../../Shared/SecondaryButton";
 import PrimaryButton from "../../Shared/PrimaryButton";
 import Spinner from "../../Shared/Spinner";
+import axiosSecure from "../../Utils/axiosSecure";
 
 const ParticipantProfile = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -22,8 +22,8 @@ const ParticipantProfile = () => {
     queryKey: ["campCount", user?.email, user?.role],
     enabled: !!user?.email,
     queryFn: async () => {
-      const res = await axios.get(
-        `http://localhost:3000/camps/count?email=${user?.email}&role=${user?.role}`
+      const res = await axiosSecure.get(
+        `/camps/count?email=${user?.email}&role=${user?.role}`
       );
       return res.data;
     },
