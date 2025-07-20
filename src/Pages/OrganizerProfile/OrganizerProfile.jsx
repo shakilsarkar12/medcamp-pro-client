@@ -11,6 +11,7 @@ import { useQuery } from '@tanstack/react-query';
 
 const OrganizerProfile = () => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { user } = useAuth();
 
   const {
@@ -103,6 +104,8 @@ const OrganizerProfile = () => {
 
       {modalOpen && (
         <OrganizerProfileUpdateModal
+          loading={loading}
+          setLoading={setLoading}
           isOpen={modalOpen}
           onClose={() => setModalOpen(false)}
         />

@@ -11,6 +11,7 @@ import axiosSecure from "../../Utils/axiosSecure";
 
 const ParticipantProfile = () => {
   const [modalOpen, setModalOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
   const { user } = useAuth();
 
   const {
@@ -118,6 +119,8 @@ const ParticipantProfile = () => {
 
       {modalOpen && (
         <OrganizerProfileUpdateModal
+          loading={loading}
+          setLoading={setLoading}
           isOpen={modalOpen}
           onClose={() => setModalOpen(false)}
         />
