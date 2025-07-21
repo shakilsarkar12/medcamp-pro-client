@@ -25,6 +25,7 @@ import UserRoleParticipent from "../Private/UserRoleParticipent";
 import UserRoleOrganizer from "../Private/UserRoleOrganizer";
 import Payment from "../Pages/Payment/Payment";
 import Feedback from "../Pages/Feedback/Feedback";
+import UpdateCamp from "../Pages/UpdateCamp/UpdateCamp";
 
 export const router = createBrowserRouter([
   {
@@ -104,6 +105,10 @@ export const router = createBrowserRouter([
       {
         path: "add-camp",
         Component: AddCamp,
+      },
+      {
+        path: "/update-camp/:campId",
+        Component: UpdateCamp,
       },
       {
         path: "manage-camps",
