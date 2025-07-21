@@ -7,7 +7,7 @@ const AuthLayout = () => {
   return (
     <div className="min-h-screen bg-gray-100">
       <Navbar />
-      <div className="max-w-11/12 mx-auto mt-8 py-8">
+      <div className="max-w-10/12 mx-auto mt-8 py-8">
         <div className="bg-white shadow rounded flex flex-col-reverse md:flex-row items-center justify-center md:justify-around gap-8 p-4 py-10 md:p-10">
           <div className="w-full md:w-1/2">
             <Outlet />

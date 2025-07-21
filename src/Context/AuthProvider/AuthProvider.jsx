@@ -39,6 +39,11 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       const email = currentUser?.email;
+      if (!currentUser) {
+        setUser(null);
+        setLoading(false);
+        localStorage.removeItem("access-token");
+      }
       if (email) {
         axiosSecure
           .get(`/users/${email}`)
