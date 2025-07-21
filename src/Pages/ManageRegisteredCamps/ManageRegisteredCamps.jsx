@@ -42,7 +42,7 @@ const ManageRegisteredCamps = () => {
       toast.success("Registration confirmed successfully!");
       refetch();
     } catch (err) {
-      console.error("Confirmation error:", err);
+      toast.error("Confirmation error:", err);
     }
   };
 
@@ -73,7 +73,7 @@ const ManageRegisteredCamps = () => {
         });
         refetch();
       } catch (err) {
-        console.error("Cancellation error:", err);
+        toast.error("Cancellation error:", err);
       }
     }
   };

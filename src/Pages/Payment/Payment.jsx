@@ -20,8 +20,6 @@ const Payment = () => {
       return res.data;
     },
   });
-    
-    console.log(registration);
 
   if (isLoading) {
     return <Spinner/>;

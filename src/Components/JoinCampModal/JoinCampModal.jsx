@@ -55,9 +55,8 @@ const JoinCampModal = ({ isOpen, setIsOpen, camp, refetchCamp }) => {
       setIsOpen(false);
       reset();
     } catch (err) {
-      console.error("Failed to register:", err);
       setLoading(false);
-      toast.error("Failed to register for the camp. Please try again.");
+      toast.error("Failed to register for the camp. Please try again.",err.message);
     }
   };
 

@@ -43,13 +43,11 @@ const GoogleLogin = () => {
               setLoading(false);
             }
           })
-          .catch((error) => {
-            console.error(error);
+          .catch(() => {
             toast.error("Error saving user !");
           });
       })
-      .catch((err) => {
-        console.error(err);
+      .catch(() => {
         toast.error("Google login failed !");
         setLoading(false);
       });

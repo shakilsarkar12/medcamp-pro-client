@@ -32,9 +32,8 @@ const ChangePasswordForm = ({ user }) => {
       } else {
         toast.error(res.data.message || "Failed to change password");
       }
-    } catch (err) {
-      console.error(err);
-      toast.error("Something went wrong");
+    } catch (error) {
+      toast.error("Something went wrong", error);
     } finally {
       setLoading(false);
     }

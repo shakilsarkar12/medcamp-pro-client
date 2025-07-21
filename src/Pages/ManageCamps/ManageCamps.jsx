@@ -48,9 +48,8 @@ const ManageCamps = () => {
             icon: "success",
           });
           refetch();
-        } catch (error) {
-          console.error("Delete error:", error);
-          toast.error("Failed to delete camp.");
+        } catch (err) {
+          toast.error("Failed to delete camp.", err.message);
         }
       }
     });

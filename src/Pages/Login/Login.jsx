@@ -56,7 +56,6 @@ const Login = () => {
             setLoading(false);
           })
           .catch((err) => {
-            console.log(err);
             toast.error("Error fetching user from DB: " + err.message);
             setLoading(false);
           });

@@ -34,8 +34,6 @@ const StripeCheckoutForm = ({ registration }) => {
     }
   }, [campFees]);
 
-  console.log(clientSecret);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (campFees <= 0) {

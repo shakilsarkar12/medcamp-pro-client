@@ -40,11 +40,8 @@ const AddCamp = () => {
     },
   });
 
-  console.log(specializedServices);
-
   const onSubmit = async (data) => {
     setUploading(true);
-    console.log(data);
 
     if (!imageFile) {
       toast.error("Please select an image first!");
@@ -105,8 +102,7 @@ const AddCamp = () => {
         toast.error("Something went wrong saving to DB");
       }
     } catch (err) {
-      toast.error("Image or Camp Upload Failed");
-      console.error(err);
+      toast.error("Image or Camp Upload Failed", err.message);
     } finally {
       setUploading(false);
     }

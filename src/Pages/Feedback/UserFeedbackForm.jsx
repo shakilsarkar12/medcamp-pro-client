@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import StarRating from "../../Components/StarRating/StarRating";
 import axiosSecure from "../../Utils/axiosSecure";
@@ -12,7 +12,6 @@ const UserFeedbackForm = ({ campId }) => {
   const { user } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
-console.log(location);
   // Fetch registered camps for the logged-in user
 
   const onSubmit = async (data) => {
@@ -31,9 +30,8 @@ console.log(location);
         navigate(location.state || "/");
       }
 
-      console.log(feedbackData);
     } catch (err) {
-      console.error("Error submitting feedback:", err);
+      toast.error("Error submitting feedback:", err);
     }
   };
 

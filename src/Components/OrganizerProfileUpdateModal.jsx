@@ -1,12 +1,12 @@
 import React, { useRef, useState } from "react";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import axios from "axios";
 import { FiEdit2 } from "react-icons/fi";
 import useAuth from "../Utils/Hooks/useAuth";
-import Spinner from "../Shared/Spinner";
+
 import { toast } from "sonner";
 
-const OrganizerProfileUpdateModal = ({ isOpen, onClose, loading, setLoading }) => {
+const OrganizerProfileUpdateModal = ({ isOpen, onClose, setLoading }) => {
   const {user, setUser} = useAuth();
   const {
     register,
@@ -53,7 +53,7 @@ const OrganizerProfileUpdateModal = ({ isOpen, onClose, loading, setLoading }) =
         );
         imageURL = res.data.data.url;
       } catch (error) {
-        console.error("Image upload failed", error);
+        toast.error("Image upload failed", error);
       } finally {
         setUploading(false);
       }
@@ -76,8 +76,7 @@ const OrganizerProfileUpdateModal = ({ isOpen, onClose, loading, setLoading }) =
       toast.success("Profile updated successfully!");
     } catch (error) {
       setLoading(false);
-      toast.error("Failed to update profile. Please try again.");
-      console.error("Update failed", error);
+      toast.error("Failed to update profile. Please try again.",error.message);
     }
   };
 
