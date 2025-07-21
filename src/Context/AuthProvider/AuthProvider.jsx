@@ -51,7 +51,6 @@ const AuthProvider = ({ children }) => {
             const dbUser = res.data;
             if (dbUser) {
               setUser(dbUser);
-              console.log(dbUser);
             }
             setLoading(false);
           })
