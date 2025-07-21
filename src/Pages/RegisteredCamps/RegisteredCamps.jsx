@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import { toast } from "sonner";
 import useAuth from "../../Utils/Hooks/useAuth";
 import axiosSecure from "../../Utils/axiosSecure";
@@ -11,6 +11,7 @@ const RegisteredCamps = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const { user } = useAuth();
+  const location = useLocation();
 
 
   const {
@@ -149,7 +150,7 @@ const RegisteredCamps = () => {
                   </td>
                   <td className="py-2 px-4">
                     {camp.pyamentStatus === "Paid" ? (
-                      <Link to={`/feedback/${camp._id}`}>
+                      <Link state={location.pathname} to={`/feedback/${camp._id}`}>
                         <button className="bg-[#2D91EF] text-white px-3 py-1 rounded font-semibold transition hover:bg-blue-500 cursor-pointer">
                           Feedback
                         </button>

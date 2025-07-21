@@ -24,6 +24,7 @@ import Spinner from "../Shared/Spinner";
 import UserRoleParticipent from "../Private/UserRoleParticipent";
 import UserRoleOrganizer from "../Private/UserRoleOrganizer";
 import Payment from "../Pages/Payment/Payment";
+import Feedback from "../Pages/Feedback/Feedback";
 
 export const router = createBrowserRouter([
   {
@@ -71,6 +72,10 @@ export const router = createBrowserRouter([
       {
         path: "analytics",
         Component: Analytics,
+      },
+      {
+        path: "feedback/:id",
+        Component: Feedback,
       },
       {
         path: "participant-profile",
