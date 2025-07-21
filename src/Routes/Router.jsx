@@ -23,6 +23,7 @@ import CampDetails from "../Pages/CampDetails/CampDetails";
 import Spinner from "../Shared/Spinner";
 import UserRoleParticipent from "../Private/UserRoleParticipent";
 import UserRoleOrganizer from "../Private/UserRoleOrganizer";
+import Payment from "../Pages/Payment/Payment";
 
 export const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ export const router = createBrowserRouter([
       {
         path: "/join-us",
         Component: JoinUs,
+      },
+      {
+        path: "/payment/:id",
+        Component: Payment,
       },
     ],
   },
