@@ -2,7 +2,6 @@ import { createBrowserRouter } from "react-router";
 import RootLayout from "../Layout/RootLayout/RootLayout";
 import Home from "../Pages/Home/Home";
 import Error from "../Pages/Error/Error";
-import Dashboard from "../Pages/Overview/Overview";
 import AvailableCamps from "../Pages/AvailableCamps/AvailableCamps";
 import JoinUs from "../Pages/JoinUs/JoinUs";
 import AuthLayout from "../Layout/AuthLayout/AuthLayout";
@@ -31,7 +30,7 @@ export const router = createBrowserRouter([
   {
     path: "/",
     Component: RootLayout,
-    errorElement: <Error />,
+    errorElement: <Error navbar={true}/>,
     children: [
       {
         index: true,

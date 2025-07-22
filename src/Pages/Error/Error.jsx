@@ -3,15 +3,15 @@ import Navbar from "../../Components/Navbar/Navbar";
 import { Link, useNavigate } from "react-router";
 import PrimaryButton from "../../Shared/PrimaryButton";
 
-const Error = () => {
-const navigate = useNavigate()
-      useEffect(() => {
-          document.title = "Page Not Found | project name";
-      }, []);
+const Error = ({ navbar }) => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    document.title = "Page Not Found | project name";
+  }, []);
   return (
     <div>
       <div className="">
-        <Navbar />
+        {navbar && <Navbar />}
         <div className="mx-4 md:mx-8 lg:mx-14 xl:mx-20 2xl:max-w-10/12  2xl:mx-auto min-h-[calc(100vh-128px)] flex-col items-center flex justify-center">
           <img
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSl-BraBWVGZSIUOFvGUTJUuPQXTLeNEyWYEg&s"

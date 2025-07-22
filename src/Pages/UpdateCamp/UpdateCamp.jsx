@@ -10,12 +10,15 @@ import "react-datepicker/dist/react-datepicker.css";
 import HeadingTitle from "../../Shared/HeadingTitle";
 import useAuth from "../../Utils/Hooks/useAuth";
 import axiosSecure from "../../Utils/axiosSecure";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { parse, isValid } from "date-fns";
+import PrimaryButton from "../../Shared/PrimaryButton";
+import Error from "../Error/Error";
 
 const UpdateCamp = () => {
   const { campId } = useParams();
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [campData, setCampData] = useState({});
   const [uploading, setUploading] = useState(false);
@@ -103,6 +106,11 @@ const UpdateCamp = () => {
       }
     },
   });
+
+
+if (user.role !== "organizer") {
+  return <Error/>
+}
 
   const onSubmit = async (data) => {
     setUploading(true);
