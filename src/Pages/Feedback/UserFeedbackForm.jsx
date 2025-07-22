@@ -45,7 +45,7 @@ const UserFeedbackForm = ({ campId }) => {
         <div>
           <label className="block mb-1 font-semibold">Your Feedback</label>
           <textarea
-            {...register("feedback", { required: true })}
+            {...register("feedbackText", { required: true })}
             rows="4"
             className="border border-[#2D91EF] rounded-md px-3 py-1.5 focus:outline-[#2D91EF] w-full placeholder:text-sm"
             placeholder="Write your feedback..."

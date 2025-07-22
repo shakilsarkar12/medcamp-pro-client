@@ -14,3 +14,7 @@ nav .active{
 .react-datepicker-wrapper{
     width: 100%;
 }
+
+.swiper-pagination-clickable{
+    margin-bottom: 5px;
+}
