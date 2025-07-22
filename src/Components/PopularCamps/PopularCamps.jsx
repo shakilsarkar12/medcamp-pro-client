@@ -19,7 +19,10 @@ const PopularCamps = () => {
 
   return (
     <section className="py-16">
-      <HeadingTitle heading="Popular Medical Camps" />
+      <HeadingTitle
+        heading="Popular Medical Camps"
+        title="Top 8 most joined and highly engaging medical camps"
+      />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 my-10">
         {popularCamps.map((camp) => (
           <CampCard key={camp._id} camp={camp} />

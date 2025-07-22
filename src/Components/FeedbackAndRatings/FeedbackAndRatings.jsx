@@ -19,7 +19,10 @@ const FeedbackAndRatings = () => {
 
   return (
     <section className="pb-16">
-      <HeadingTitle heading="What Participants Are Saying" />
+      <HeadingTitle
+        heading="What Participants Are Saying"
+        title="Real feedback and ratings from our valued participants"
+      />
       <Swiper
         modules={[Pagination, Autoplay]}
         spaceBetween={1}
@@ -34,7 +37,7 @@ const FeedbackAndRatings = () => {
       >
         {feedbacks.map((item) => (
           <SwiperSlide key={item._id}>
-            <div className="relative bg-white rounded-md px-3 py-6 min-h-40 shadow cursor-pointer transition duration-300 ease-in-out h-full m-4">
+            <div className="relative bg-white rounded-md px-3 py-6 min-h-40 shadow cursor-pointer transition duration-300 ease-in-out h-full m-0.5">
               {/* Avatar & Name */}
               <div className="flex items-center gap-4 mb-4">
                 <div className="w-8 h-8 rounded-full bg-[#2D91EF] flex items-center justify-center text-white font-semibold text-lg shadow">
