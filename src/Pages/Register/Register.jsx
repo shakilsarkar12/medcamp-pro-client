@@ -48,6 +48,7 @@ const Register = () => {
           creationTime,
           lastSignInTime,
           emailVerified,
+          role: "participant",
         };
 
         updateProfile(user, { displayName, photoURL })

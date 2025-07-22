@@ -18,3 +18,7 @@ nav .active{
 .swiper-pagination-clickable{
     margin-bottom: 5px;
 }
+
+tspan{
+    padding-left: 4px;
+}

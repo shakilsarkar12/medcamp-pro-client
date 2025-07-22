@@ -1,13 +1,13 @@
-import React from 'react';
-import CommingSoon from '../../Shared/CommingSoon';
+import React from "react";
+import CommingSoon from "../../Shared/CommingSoon";
+import ParticipantDashboardOverview from "../../Components/ParticipantDashboardOverview/ParticipantDashboardOverview";
 
 const Overview = () => {
-    return (
-        <div className='text-center pt-5'>
-            Dashboard 
-            <CommingSoon btn={true} />
-        </div>
-    );
+  return (
+    <div>
+      <ParticipantDashboardOverview />
+    </div>
+  );
 };
 
 export default Overview;
