@@ -10,12 +10,12 @@ import "react-datepicker/dist/react-datepicker.css";
 import HeadingTitle from "../../Shared/HeadingTitle";
 import useAuth from "../../Utils/Hooks/useAuth";
 import axiosSecure from "../../Utils/axiosSecure";
-import { useNavigate, useParams } from "react-router";
+import { useParams } from "react-router";
 import { parse, isValid } from "date-fns";
 
 const UpdateCamp = () => {
   const { campId } = useParams();
-  const navigate = useNavigate();
+  const { user } = useAuth();
   const [loading, setLoading] = useState(true);
   const [campData, setCampData] = useState({});
   const [uploading, setUploading] = useState(false);
@@ -23,13 +23,17 @@ const UpdateCamp = () => {
   const [previewURL, setPreviewURL] = useState(null);
   const [specializedInput, setSpecializedInput] = useState("");
   const [specializedServices, setSpecializedServices] = useState([]);
+  const [imageError, setImageError] = useState(false);
 
   useEffect(() => {
     const fetchCampData = async () => {
       try {
         const res = await axiosSecure.get(`/camp-details/${campId}`);
         setCampData(res.data);
-        setPreviewURL(res.data.image);
+        // Only set previewURL if the image URL is valid
+        if (res.data.image) {
+          setPreviewURL(res.data.image);
+        }
         setSpecializedServices(res.data.specializedServices || []);
         setLoading(false);
       } catch (err) {
@@ -44,6 +48,7 @@ const UpdateCamp = () => {
   const {
     register,
     handleSubmit,
+    reset,
     control,
     setValue,
     formState: { errors },
@@ -71,7 +76,7 @@ const UpdateCamp = () => {
         "scheduledDate",
         campData.scheduledDate ? new Date(campData.scheduledDate) : null
       );
-      // Inside the useEffect where form values are set
+      // Parse scheduledTime safely
       const parsedTime = campData.scheduledTime
         ? parse(campData.scheduledTime, "h:mm a", new Date())
         : null;
@@ -94,6 +99,7 @@ const UpdateCamp = () => {
         const file = acceptedFiles[0];
         setImageFile(file);
         setPreviewURL(URL.createObjectURL(file));
+        setImageError(false);
       }
     },
   });
@@ -101,7 +107,14 @@ const UpdateCamp = () => {
   const onSubmit = async (data) => {
     setUploading(true);
 
-    let imageURL = campData.image;
+    if (!imageFile && !previewURL) {
+      toast.error("No image select");
+      setUploading(false);
+      return;
+    }
+
+    let imageURL = campData.image; // Retain existing image if no new image uploaded
+
     if (imageFile) {
       const formData = new FormData();
       formData.append("image", imageFile);
@@ -153,10 +166,24 @@ const UpdateCamp = () => {
 
       if (saveRes.data.modifiedCount > 0) {
         toast.success("Camp updated successfully!");
-        navigate("/manage-camps");
         setImageFile(null);
         setPreviewURL(imageURL);
-
+        setImageError(false);
+        reset({
+          campName: updatedCampData.campName,
+          doctor: updatedCampData.healthcareProfessional,
+          fees: updatedCampData.fees,
+          scheduledDate: new Date(updatedCampData.scheduledDate),
+          scheduledTime: parse(
+            updatedCampData.scheduledTime,
+            "h:mm a",
+            new Date()
+          ),
+          venueLocation: updatedCampData.venueLocation,
+          targetAudience: updatedCampData.targetAudience,
+          description: updatedCampData.description,
+          location: updatedCampData.location,
+        });
       } else {
         toast.error("No changes detected or update failed.");
       }
@@ -207,11 +234,11 @@ const UpdateCamp = () => {
           <div
             {...getRootProps()}
             className={`w-full p-6 border-1 border-[#2D91EF] border-dashed rounded text-center cursor-pointer transition ${
-              isDragActive ? "border-[#2D91EF] border-2  bg-teal-50" : ""
-            } ${previewURL && "border-[#2D91EF]"}`}
+              isDragActive ? "border-[#2D91EF] border-2 bg-teal-50" : ""
+            } ${previewURL && !imageError && "border-[#2D91EF]"}`}
           >
             <input {...getInputProps()} />
-            {previewURL ? (
+            {previewURL && !imageError ? (
               <div className="flex flex-col items-center gap-2">
                 <div className="relative inline-block">
                   <button
@@ -219,6 +246,7 @@ const UpdateCamp = () => {
                       e.stopPropagation();
                       setImageFile(null);
                       setPreviewURL(null);
+                      setImageError(false);
                     }}
                     className="absolute -top-2 -right-2 rounded-full bg-white text-red-500 text-2xl transition"
                     title="Remove"
@@ -229,13 +257,16 @@ const UpdateCamp = () => {
                     src={previewURL}
                     alt="Preview"
                     className="max-w-36 max-h-40 object-cover rounded shadow"
+                    onError={() => setImageError(true)}
                   />
                 </div>
                 <p className="text-green-600 font-medium">{imageFile?.name}</p>
               </div>
             ) : (
               <p className="text-gray-500 text-sm">
-                Drag & drop image here, click to select, or paste
+                {imageError
+                  ? "Image failed to load. Drag & drop a new image, click to select, or paste."
+                  : "Drag & drop image here, click to select, or paste"}
               </p>
             )}
           </div>
@@ -390,18 +421,8 @@ const UpdateCamp = () => {
         </div>
 
         {/* Submit Button */}
-        <div className="flex items-center text-center col-span-2">
-          <SecondaryButton
-            onClick={() => navigate("/manage-camps")}
-            className="bg-red-400 hover:bg-red-500 text-white px-4 py-2 rounded mr-2 w-full"
-          >
-            Cencle
-          </SecondaryButton>
-          <SecondaryButton
-            type="submit"
-            disabled={uploading}
-            className="w-full"
-          >
+        <div className="text-center col-span-2">
+          <SecondaryButton type="submit" disabled={uploading}>
             {uploading ? "Updating..." : "Update Camp"}
           </SecondaryButton>
         </div>
