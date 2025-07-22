@@ -2,8 +2,8 @@ import React from "react";
 import { Link } from "react-router";
 
 const PrimaryButton = ({
-  px = "px-4",
-  py = "py-2",
+  px = "px-3",
+  py = "py-1.5",
   onClick = () => {},
   to,
   className = "",
