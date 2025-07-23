@@ -154,7 +154,7 @@ Whether you're a healthcare organizer or a participant, we've got you covered.
 
 |Home | Dashboard | Analytics |
 |-----------|-----------|--------------|
-| ![Home](screenshort\Home.png) | ![Dashboard](screenshort\dashboard.png) | ![Analytics](screenshort\analytics.png) |
+| ![Home](https://github.com/Programming-Hero-Web-Course4/b11a12-client-side-shakilsarkar12/blob/main/screenshort/Home.png?raw=true) | ![Dashboard](https://github.com/Programming-Hero-Web-Course4/b11a12-client-side-shakilsarkar12/blob/main/screenshort/dashboard.png) | ![Analytics](https://github.com/Programming-Hero-Web-Course4/b11a12-client-side-shakilsarkar12/blob/main/screenshort/analytics.png) |
 
 ---
 
