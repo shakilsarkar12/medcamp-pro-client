@@ -9,6 +9,11 @@
 nav .active{
     color: #01BF68;
     border-bottom: 2px solid #01BF68;
+    transition: all 1s ease-in-out;
+}
+
+nav a:hover{
+    color: #01BF68;
 }
 
 .react-datepicker-wrapper{

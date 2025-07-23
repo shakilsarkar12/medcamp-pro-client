@@ -48,12 +48,28 @@ const SideNavbar = ({ isOpen, onClose, onLogout }) => {
             >
               Available Camps
             </NavLink>
+            {!user && (
+              <NavLink
+                to="/join-us"
+                onClick={onClose}
+                className="hover:text-primary"
+              >
+                Join Us
+              </NavLink>
+            )}
             <NavLink
-              to="/join-us"
+              to="/contact-us"
               onClick={onClose}
               className="hover:text-primary"
             >
-              Join Us
+              Contact Us
+            </NavLink>
+            <NavLink
+              to="/about-us"
+              onClick={onClose}
+              className="hover:text-primary"
+            >
+              About Us
             </NavLink>
             <NavLink
               to="/overview"
