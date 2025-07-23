@@ -47,7 +47,7 @@ const FeedbackRatingChart = ({ feedbacks }) => {
           </BarChart>
         </ResponsiveContainer>
       ) : (
-        <p className="text-sm text-gray-400">No feedback given yet.</p>
+        <p className="text-sm text-gray-400 p-4">No feedback given yet.</p>
       )}
     </div>
   );

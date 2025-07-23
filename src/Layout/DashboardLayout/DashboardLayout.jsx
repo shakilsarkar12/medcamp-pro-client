@@ -3,9 +3,19 @@ import { FiMenu, FiX } from "react-icons/fi";
 import { Outlet } from "react-router";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import MainLogo from "../../Shared/MainLogo";
+import Spinner from "../../Shared/Spinner";
 
 const DashboardLayout = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  setTimeout(() => {
+    setLoading(false);
+  }, 300);
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   return (
     <div className="flex h-screen bg-accent text-darkText gap-4">

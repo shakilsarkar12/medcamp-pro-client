@@ -19,6 +19,7 @@ import { AuthContext } from "../../Context/AuthContext/AuthContext";
 import axiosSecure from "../../Utils/axiosSecure";
 import StatCard from "../../Shared/StatCard";
 import FeedbackRatingChart from "./FeedbackRatingChart";
+import Spinner from "../../Shared/Spinner";
 
 const ParticipantDashboardOverview = () => {
   const { user } = useContext(AuthContext);
@@ -28,7 +29,7 @@ const ParticipantDashboardOverview = () => {
     queryKey: ["participantStats", user?.email],
     queryFn: async () => {
       const res = await axiosSecure(
-        `http://localhost:3000/dashboard/participant-overview?email=${user.email}`
+        `/dashboard/participant-overview?email=${user.email}`
       );
       return res.data;
     },
@@ -36,7 +37,7 @@ const ParticipantDashboardOverview = () => {
   });
 
   if (isLoading) {
-    return <p className="text-center text-white py-10">Loading...</p>;
+    return <Spinner/>;
   }
 
   const {
@@ -85,7 +86,7 @@ const ParticipantDashboardOverview = () => {
         </h3>
 
         {upcomingCamps.length === 0 ? (
-          <p className="text-sm text-gray-400 italic">
+          <p className="text-sm text-gray-400 p-3">
             No camps registered recently.
           </p>
         ) : (

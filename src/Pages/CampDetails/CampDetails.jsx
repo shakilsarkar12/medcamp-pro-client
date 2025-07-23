@@ -12,8 +12,10 @@ import JoinCampModal from "../../Components/JoinCampModal/JoinCampModal";
 import useAuth from "../../Utils/Hooks/useAuth";
 import { toast } from "sonner";
 import axiosSecure from "../../Utils/axiosSecure";
+import Spinner from "../../Shared/Spinner";
 
 const CampDetails = () => {
+  const [loading, setLoading] = useState(true);
   const campFromLoader = useLoaderData();
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -29,6 +31,15 @@ const CampDetails = () => {
     },
     initialData: campFromLoader,
   });
+
+
+  setTimeout(() => {
+    setLoading(false);
+  }, 300);
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   if (!camp) return <h1>No Data Found</h1>;
 

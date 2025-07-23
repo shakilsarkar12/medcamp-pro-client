@@ -168,7 +168,7 @@ if (user.role !== "organizer") {
 
       // Update camp in DB using PATCH
       const saveRes = await axiosSecure.patch(
-        `http://localhost:3000/update-camp/${campId}`,
+        `/update-camp/${campId}`,
         updatedCampData
       );
 

@@ -1,10 +1,10 @@
 import React from "react";
-import CommingSoon from "../../Shared/CommingSoon";
+import { Navigate } from "react-router";
 
 const JoinUs = () => {
   return (
     <div>
-      <CommingSoon btn={true} />
+      <Navigate to="/login" replace />
     </div>
   );
 };

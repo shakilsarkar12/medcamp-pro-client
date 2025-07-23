@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router";
 import { FiMenu } from "react-icons/fi";
+import { FaChevronDown } from "react-icons/fa";
 import MainLogo from "../../Shared/MainLogo";
 import PrimaryButton from "../../Shared/PrimaryButton";
 import SecondaryButton from "../../Shared/SecondaryButton";
@@ -12,6 +13,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { user, setUser, setLoading, logOutUser } = useAuth();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const toggleDrawer = () => setIsDrawerOpen(!isDrawerOpen);
 
@@ -22,6 +24,8 @@ const Navbar = () => {
         setLoading(false);
         toast.success("Your Account logout Success");
         localStorage.removeItem("access-token");
+        setDropdownOpen(false);
+        navigate("/");
       })
       .catch((err) => {
         alert("logout error", err);
@@ -38,12 +42,12 @@ const Navbar = () => {
         <nav className="hidden lg:flex items-center gap-8">
           <NavLink to="/">Home</NavLink>
           <NavLink to="/available-camps">Available Camps</NavLink>
-          <NavLink to="/join-us">Join Us</NavLink>
+          {!user && <NavLink to="/join-us">Join Us</NavLink>}
           <NavLink to="/overview">Dashboard</NavLink>
         </nav>
 
-        {/* Desktop Auth Buttons */}
-        {!user && (
+        {/* Desktop Auth/Profile */}
+        {!user ? (
           <div className="hidden lg:flex items-center gap-4">
             <PrimaryButton onClick={() => navigate("/login")}>
               Log in
@@ -52,13 +56,13 @@ const Navbar = () => {
               Register
             </SecondaryButton>
           </div>
-        )}
-        {user && (
-          <div className="hidden lg:flex items-center gap-4">
-            <PrimaryButton onClick={() => handleLogOut()}>
-              Log Out
-            </PrimaryButton>
-            <Link to="/participant-profile">
+        ) : (
+          <div className="hidden lg:flex items-center gap-4 relative">
+            {/* Profile Picture with Dropdown */}
+            <button
+              className="flex items-center gap-2 focus:outline-none"
+              onClick={() => setDropdownOpen((prev) => !prev)}
+            >
               <img
                 referrerPolicy="no-referrer"
                 src={
@@ -66,9 +70,33 @@ const Navbar = () => {
                   "https://i.ibb.co/ccZtvg4B/Portrait-Placeholder.png"
                 }
                 alt="profile"
-                className="w-10 h-10 rounded-full object-cover"
+                className="w-10 h-10 rounded-full object-cover border-2 border-blue-400"
               />
-            </Link>
+              <FaChevronDown className="text-gray-500" />
+            </button>
+            {/* Dropdown */}
+            {dropdownOpen && (
+              <div className="absolute right-0 top-12 bg-white shadow-lg rounded-lg min-w-[180px] py-2 z-50 border">
+                <div className="px-4 py-2 text-gray-700 font-semibold border-b">
+                  {user.displayName}
+                </div>
+                <button
+                  className="w-full text-left px-4 py-2 hover:bg-blue-50 text-[#2D91EF] font-medium"
+                  onClick={() => {
+                    setDropdownOpen(false);
+                    navigate("/overview");
+                  }}
+                >
+                  Dashboard
+                </button>
+                <button
+                  className="w-full text-left px-4 py-2 hover:bg-red-50 text-red-500 font-medium"
+                  onClick={handleLogOut}
+                >
+                  Log Out
+                </button>
+              </div>
+            )}
           </div>
         )}
 
@@ -83,7 +111,7 @@ const Navbar = () => {
         isOpen={isDrawerOpen}
         onClose={toggleDrawer}
         user={user}
-        onLogout={() => handleLogOut()}
+        onLogout={handleLogOut}
       />
     </header>
   );
