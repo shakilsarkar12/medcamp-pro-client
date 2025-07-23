@@ -1,11 +1,18 @@
 import React from "react";
-import CommingSoon from "../../Shared/CommingSoon";
-import ParticipantDashboardOverview from "../../Components/ParticipantDashboardOverview/ParticipantDashboardOverview";
+import ParticipantDashboardOverview from "../ParticipantDashboardOverview/ParticipantDashboardOverview";
+import OrganizerDashboardOverview from "../OrganizerDashboardOverview/OrganizerDashboardOverview";
+import useAuth from "../../Utils/Hooks/useAuth";
 
 const Overview = () => {
+  const { user } = useAuth();
+
   return (
     <div>
-      <ParticipantDashboardOverview />
+      {user.role === "participant" ? (
+        <ParticipantDashboardOverview />
+      ) : (
+        <OrganizerDashboardOverview />
+      )}
     </div>
   );
 };

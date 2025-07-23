@@ -9,9 +9,11 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import HeadingTitle from "../../Shared/HeadingTitle";
 import useAuth from "../../Utils/Hooks/useAuth";
+import Spinner from "../../Shared/Spinner";
 
 const AddCamp = () => {
   const { user } = useAuth();
+  const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
   const [imageFile, setImageFile] = useState(null);
   const [previewURL, setPreviewURL] = useState(null);
@@ -24,6 +26,10 @@ const AddCamp = () => {
     control,
     formState: { errors },
   } = useForm();
+
+  setTimeout(() => {
+    setLoading(false);
+  }, 200);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
@@ -107,6 +113,10 @@ const AddCamp = () => {
       setUploading(false);
     }
   };
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-6 bg-white rounded shadow my-10">

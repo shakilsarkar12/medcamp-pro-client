@@ -12,7 +12,12 @@ import axiosSecure from "../../Utils/axiosSecure";
 const ManageCamps = () => {
   const { user } = useAuth();
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(true);
   const itemsPerPage = 10;
+
+  setTimeout(() => {
+    setLoading(false);
+  }, 200);
 
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["organizer-camps", user?.email, currentPage],
@@ -55,7 +60,7 @@ const ManageCamps = () => {
     });
   };
 
-  if (isLoading) return <Spinner />;
+  if (isLoading || loading) return <Spinner />;
 
   const { camps, totalCamps } = data || {};
   const totalPages = Math.ceil(totalCamps / itemsPerPage);
@@ -70,7 +75,7 @@ const ManageCamps = () => {
         <table className="min-w-4xl w-full text-sm bg-white rounded-lg overflow-hidden">
           <thead className="bg-gradient-to-r from-blue-100 to-blue-100 text-[#2D91EF]">
             <tr>
-              <th className="py-3 px-4 text-left font-semibold">#</th>
+              <th className="py-3 px-4 text-left font-semibold w-5">#</th>
               <th className="py-3 px-4 text-left font-semibold">Camp Name</th>
               <th className="py-3 px-4 text-left font-semibold">Date & Time</th>
               <th className="py-3 px-4 text-left font-semibold">Location</th>
@@ -92,7 +97,7 @@ const ManageCamps = () => {
                   {(currentPage - 1) * itemsPerPage + index + 1}
                 </td>
                 <td className="py-3 px-4 font-medium text-gray-800 group-hover:text-blue-700 transition-colors">
-                  {camp.campName}
+                  <Link to={`/camp-details/${camp._id}`}>{camp.campName}</Link>
                 </td>
                 <td className="py-3 px-4">
                   {camp.scheduledDate}{" "}

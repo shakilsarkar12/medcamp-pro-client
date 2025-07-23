@@ -5,10 +5,15 @@ import Swal from "sweetalert2";
 import Pagination from "../../Shared/Pagination";
 import axiosSecure from "../../Utils/axiosSecure";
 import { toast } from "sonner";
+import Spinner from "../../Shared/Spinner";
 
 const ManageRegisteredCamps = () => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(true);
   const itemsPerPage = 10;
+  setTimeout(() => {
+    setLoading(false);
+  }, 200);
 
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["camp-registrations", currentPage],
@@ -23,6 +28,10 @@ const ManageRegisteredCamps = () => {
 
   const registrations = data?.registrations || [];
   const totalPages = data?.totalPages || 1;
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   // Confirm registration if payment is paid and not already confirmed
   const handleConfirm = async (registration) => {
@@ -87,6 +96,9 @@ const ManageRegisteredCamps = () => {
         <table className="min-w-4xl w-full text-xs md:text-sm bg-white rounded-lg overflow-hidden">
           <thead className="bg-gradient-to-r from-blue-100 to-blue-200 text-[#2D91EF]">
             <tr>
+              <th className="py-3 px-4 text-left w-5 font-semibold">
+                #
+              </th>
               <th className="py-3 px-4 text-left font-semibold">
                 Participant Name
               </th>
@@ -125,11 +137,12 @@ const ManageRegisteredCamps = () => {
                 </td>
               </tr>
             ) : (
-              registrations.map((reg) => (
+              registrations.map((reg, index) => (
                 <tr
                   key={reg._id}
                   className="border-b border-gray-200 last:border-b-0 hover:bg-blue-50 transition-colors group"
                 >
+                  <td className="py-3 px-4">{index + 1}</td>
                   <td className="py-3 px-4">{reg.participantName}</td>
                   <td className="py-3 px-4 font-medium text-gray-800 group-hover:text-blue-700 transition-colors">
                     {reg.campName}

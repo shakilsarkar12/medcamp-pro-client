@@ -18,7 +18,12 @@ import HeadingTitle from "../../Shared/HeadingTitle";
 const Analytics = () => {
   const { user } = useAuth();
   const [analyticsData, setAnalyticsData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [loading, setLoading] = useState(true);
+
+  setTimeout(() => {
+    setLoading(false);
+  }, 200);
 
   useEffect(() => {
     if (user?.email) {
@@ -31,15 +36,15 @@ const Analytics = () => {
             date: dayjs(item.registrationDate).format("MMM D, YYYY"),
           }));
           setAnalyticsData(formatted);
-          setLoading(false);
+          setIsLoading(false);
         })
-        .catch((err) => {
+        .catch(() => {
           setLoading(false);
         });
     }
   }, [user]);
 
-  if (loading) return <Spinner />;
+  if (isLoading || loading) return <Spinner />;
 
   return (
     <div className="w-full max-w-4xl mx-auto mt-10 p-4 rounded-xl shadow-md bg-gradient-to-br from-blue-50 via-white to-teal-50">
