@@ -22,3 +22,18 @@ nav .active{
 tspan{
     padding-left: 4px;
 }
+
+@keyframes slideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+@keyframes slideDown {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(100%); opacity: 0; }
+}
+.animate-slideUp {
+  animation: slideUp 0.3s cubic-bezier(.4,0,.2,1) forwards;
+}
+.animate-slideDown {
+  animation: slideDown 0.3s cubic-bezier(.4,0,.2,1) forwards;
+}

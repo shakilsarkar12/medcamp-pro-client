@@ -202,7 +202,6 @@ const ManageRegisteredCamps = () => {
           </tbody>
         </table>
       </div>
-      {totalPages > 1 && (
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
@@ -210,7 +209,6 @@ const ManageRegisteredCamps = () => {
           totalItems={data?.total || 0}
           itemsPerPage={itemsPerPage}
         />
-      )}
     </div>
   );
 };
