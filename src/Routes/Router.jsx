@@ -25,6 +25,8 @@ import UserRoleOrganizer from "../Private/UserRoleOrganizer";
 import Payment from "../Pages/Payment/Payment";
 import Feedback from "../Pages/Feedback/Feedback";
 import UpdateCamp from "../Pages/UpdateCamp/UpdateCamp";
+import ContactUS from "../Pages/ContactUS/ContactUS";
+import AboutUS from "../Pages/AboutUS/AboutUS";
 
 export const router = createBrowserRouter([
   {
@@ -50,6 +52,14 @@ export const router = createBrowserRouter([
       {
         path: "/join-us",
         Component: JoinUs,
+      },
+      {
+        path: "/contact-us",
+        Component: ContactUS,
+      },
+      {
+        path: "/about-us",
+        Component: AboutUS,
       },
       {
         path: "/payment/:id",
