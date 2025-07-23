@@ -43,7 +43,8 @@ const Navbar = () => {
           <NavLink to="/">Home</NavLink>
           <NavLink to="/available-camps">Available Camps</NavLink>
           {!user && <NavLink to="/join-us">Join Us</NavLink>}
-          <NavLink to="/overview">Dashboard</NavLink>
+          <NavLink to="/contact-us">Contact Us</NavLink>
+          <NavLink to="/about-us">About Us</NavLink>
         </nav>
 
         {/* Desktop Auth/Profile */}

@@ -1,4 +1,3 @@
-
 <div align="center">
   <img src="src/assets/logo.png" alt="Medicamp Logo" width="120" />
   <h1>🩺 Medicamp Client</h1>
@@ -73,3 +72,105 @@ This project is licensed under the MIT License.
 <div align="center">
   <b>Made with ❤️ by Medicamp Team</b>
 </div>
+
+---
+
+# 🏥 MedCamp Pro
+
+Welcome to **MedCamp Pro** – your all-in-one platform for organizing, managing, and joining medical camps!  
+Whether you're a healthcare organizer or a participant, we've got you covered.
+
+---
+
+## 🚀 Features
+
+- **Organizer Dashboard:**  
+  - See stats, top camps, recent activity, and top participants at a glance.
+  - Add, update, and manage your camps easily.
+  - Track registrations and payments in real-time.
+
+- **Participant Dashboard:**  
+  - View your camp registration trends with beautiful analytics.
+  - Join new camps and give feedback.
+  - Manage your profile and payment history.
+
+- **Camp Management:**  
+  - Add new camps with images, dates, locations, and specialized services.
+  - Update camp details anytime.
+  - See all registered participants and their feedback.
+
+- **Secure Payments:**  
+  - Stripe integration for safe and easy payments.
+  - Payment status and history tracking.
+
+- **Feedback & Ratings:**  
+  - Collect and display participant feedback for each camp.
+  - Star ratings for quick quality checks.
+
+- **Responsive Design:**  
+  - Works great on desktop, tablet, and mobile.
+  - Clean, modern UI with Tailwind CSS.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend:** React, Tailwind CSS, Recharts, Stripe.js
+- **Backend:** Node.js, Express, MongoDB
+- **Auth:** Firebase Authentication
+- **State/Data:** TanStack React Query
+- **Notifications:** Sonner Toasts
+
+---
+
+## 📦 Getting Started
+
+1. **Clone the repo:**
+   ```
+   git clone https://github.com/yourusername/medicamp-pro.git
+   ```
+
+2. **Install dependencies:**
+   ```
+   cd medicamp-pro/medicamp-cliant
+   npm install
+   ```
+
+3. **Set up environment variables:**
+   - Create a `.env` file in both `client` and `server` folders.
+   - Add your API URLs, Firebase keys, Stripe keys, etc.
+
+4. **Run the app:**
+   ```
+   npm run dev
+   ```
+
+5. **Open in browser:**  
+   [http://localhost:5173](http://localhost:5173)
+
+---
+
+## ✨ Screenshots
+
+|Home | Dashboard | Analytics |
+|-----------|-----------|--------------|
+| ![Home](screenshort\Home.png) | ![Dashboard](screenshort\dashboard.png) | ![Analytics](screenshort\analytics.png) |
+
+---
+
+## 🤝 Contributing
+
+Pull requests are welcome!  
+For major changes, please open an issue first to discuss what you’d like to change.
+
+---
+
+## 📧 Contact
+
+Questions? Suggestions?  
+Email: support@medcamp-pro.com
+
+---
+
+**MedCamp Pro** – Empowering communities through accessible healthcare.  
+Let's make a difference, one camp at a time! 🚑
