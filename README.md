@@ -6,7 +6,7 @@
     <img src="https://img.shields.io/badge/React-18.0-blue?logo=react" />
     <img src="https://img.shields.io/badge/Vite-4.0-purple?logo=vite" />
     <img src="https://img.shields.io/badge/Node.js-18.x-green?logo=node.js" />
-    <img src="https://img.shields.io/badge/Express-4.x-black?logo=express" />
+    <img src="https://img.shields.io/badge/Express-5.x-black?logo=express" />
     <img src="https://img.shields.io/badge/MongoDB-6.x-brightgreen?logo=mongodb" />
   </p>
   <p>
