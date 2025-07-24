@@ -1,42 +1,130 @@
 <div align="center">
-  <img src="src/assets/logo.png" alt="Medicamp Logo" width="120" />
-  <h1>🩺 Medicamp Client</h1>
-  <p><b>Modern React + Vite Project</b></p>
+  <img src="src/assets/logo.png" alt="MedCamp Pro Logo" width="120" />
+  <h1>🩺 MedCamp Pro</h1>
+  <p><b>Complete Modern Web Application</b></p>
   <p>
     <img src="https://img.shields.io/badge/React-18.0-blue?logo=react" />
     <img src="https://img.shields.io/badge/Vite-4.0-purple?logo=vite" />
-    <img src="https://img.shields.io/badge/ESLint-enabled-blueviolet?logo=eslint" />
+    <img src="https://img.shields.io/badge/Node.js-18.x-green?logo=node.js" />
+    <img src="https://img.shields.io/badge/Express-4.x-black?logo=express" />
+    <img src="https://img.shields.io/badge/MongoDB-6.x-brightgreen?logo=mongodb" />
+  </p>
+  <p>
+    <b>Fullstack Project: Frontend & Backend Included</b>
+  </p>
+  <p>
+    <i>Empowering communities through accessible healthcare camps.</i>
   </p>
 </div>
 
+---
+
+## 🌐 Live Site
+
+[https://medicamp-pro.web.app](https://medicamp-pro.web.app)
+
+---
+
+## 👤 Organizer Credentials
+
+- **Username:** organizer1@medicamp.com
+- **Password:** Organizer@123
+
+---
 
 ## 🚀 Features
 
-- ⚡️ Fast development with Vite
-- 🔥 Hot Module Replacement (HMR)
-- 🛡️ ESLint for code quality
-- 🔒 Firebase authentication
-- 🎨 Modern UI components
-- 📊 Analytics & dashboard
+- Organizer & Participant dashboards with private routes
+- Responsive design for mobile, tablet, desktop, and dashboard
+- Popular camps section with live participant counts
+- Camp details with registration modal and participant info
+- Feedback & Ratings system for each camp
+- Secure Stripe payment integration
+- JWT authentication (localStorage) for protected routes
+- TanStack Query for all GET data fetching
+- Sweet alerts/toasts for all CRUD/auth actions (no browser alerts)
+- 404 Not Found page
+- Footer with essential links and contact info
+- Environment variables for Firebase & MongoDB credentials
+- No Lorem Ipsum anywhere
+
+---
+
+## 📝 Notable Commits
+
+### Client Side (20+)
+- Initial project setup and Tailwind config
+- Responsive Navbar with profile dropdown and outside click close
+- Home page banner slider with success stories
+- Popular camps section with dynamic participant count
+- Camp details modal and registration form
+- Feedback & Ratings section implementation
+- Available Camps page with search, sort, and layout toggle
+- Organizer dashboard: profile, add camp, manage camps, manage registrations
+- Participant dashboard: analytics (Recharts), profile, registered camps, payment history
+- Stripe payment integration and payment status update
+- JWT auth setup with axios interceptor
+- TanStack Query for all GET requests
+- Sweet alerts/toasts for all CRUD/auth actions
+- 404 Page and Footer component
+- Pagination and search for all tables
+- Environment variable usage for sensitive keys
+- Social login (Firebase) on Join Us/Register
+- Modal and form validation with react-hook-form
+- Mobile/tablet/desktop responsive fixes
+- README and screenshots added
+
+### Server Side (12+)
+- Express server and MongoDB connection
+- JWT authentication and middleware
+- Organizer and participant role management
+- Camp CRUD endpoints (add, update, delete, get)
+- Registration and participant count update
+- Payment and payment history endpoints
+- Feedback & Ratings endpoints
+- Pagination and search endpoints for tables
+- Secure environment variable usage
+- Error handling and 404 route
+- CORS and security middleware
+- Deployment scripts and config
+
+---
 
 ## 📦 Tech Stack
 
-<p>
-  <img src="https://img.shields.io/badge/React-18.0-blue?logo=react" />
-  <img src="https://img.shields.io/badge/Vite-4.0-purple?logo=vite" />
-  <img src="https://img.shields.io/badge/Firebase-9.0-orange?logo=firebase" />
-  <img src="https://img.shields.io/badge/ESLint-enabled-blueviolet?logo=eslint" />
-</p>
+- **Frontend:** React, Tailwind CSS, Recharts, Stripe.js, Headless UI, TanStack Query, Sonner Toasts
+- **Backend:** Node.js, Express, MongoDB, JWT
+- **Auth:** Firebase Authentication
+- **Other:** React Router, react-hook-form
+
+---
 
 ## 🛠️ Getting Started
 
-```bash
-# Install dependencies
-npm install
+1. **Clone the repo:**
+   ```bash
+   git clone https://github.com/yourusername/medicamp-pro.git
+   ```
 
-# Start development server
-npm run dev
-```
+2. **Install dependencies:**
+   ```bash
+   cd medicamp-pro/medicamp-cliant
+   npm install
+   ```
+
+3. **Set up environment variables:**
+   - Create a `.env` file in both `client` and `server` folders.
+   - Add your API URLs, Firebase keys, Stripe keys, MongoDB URI, etc.
+
+4. **Run the app:**
+   ```bash
+   npm run dev
+   ```
+
+5. **Open in browser:**  
+   [http://localhost:5173](http://localhost:5173)
+
+---
 
 ## 📁 Project Structure
 
@@ -53,101 +141,6 @@ src/
 ├── Utils/             # Utility functions & hooks
 ```
 
-## 🧑‍💻 Development
-
-- Code linting: `npm run lint`
-- Build for production: `npm run build`
-- Preview production build: `npm run preview`
-
-## 📝 ESLint & TypeScript
-
-For production, consider using TypeScript and type-aware lint rules. See the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) and [`typescript-eslint`](https://typescript-eslint.io).
-
-## 📄 License
-
-This project is licensed under the MIT License.
-
----
-
-<div align="center">
-  <b>Made with ❤️ by Medicamp Team</b>
-</div>
-
----
-
-# 🏥 MedCamp Pro
-
-Welcome to **MedCamp Pro** – your all-in-one platform for organizing, managing, and joining medical camps!  
-Whether you're a healthcare organizer or a participant, we've got you covered.
-
----
-
-## 🚀 Features
-
-- **Organizer Dashboard:**  
-  - See stats, top camps, recent activity, and top participants at a glance.
-  - Add, update, and manage your camps easily.
-  - Track registrations and payments in real-time.
-
-- **Participant Dashboard:**  
-  - View your camp registration trends with beautiful analytics.
-  - Join new camps and give feedback.
-  - Manage your profile and payment history.
-
-- **Camp Management:**  
-  - Add new camps with images, dates, locations, and specialized services.
-  - Update camp details anytime.
-  - See all registered participants and their feedback.
-
-- **Secure Payments:**  
-  - Stripe integration for safe and easy payments.
-  - Payment status and history tracking.
-
-- **Feedback & Ratings:**  
-  - Collect and display participant feedback for each camp.
-  - Star ratings for quick quality checks.
-
-- **Responsive Design:**  
-  - Works great on desktop, tablet, and mobile.
-  - Clean, modern UI with Tailwind CSS.
-
----
-
-## 🛠️ Tech Stack
-
-- **Frontend:** React, Tailwind CSS, Recharts, Stripe.js
-- **Backend:** Node.js, Express, MongoDB
-- **Auth:** Firebase Authentication
-- **State/Data:** TanStack React Query
-- **Notifications:** Sonner Toasts
-
----
-
-## 📦 Getting Started
-
-1. **Clone the repo:**
-   ```
-   git clone https://github.com/yourusername/medicamp-pro.git
-   ```
-
-2. **Install dependencies:**
-   ```
-   cd medicamp-pro/medicamp-cliant
-   npm install
-   ```
-
-3. **Set up environment variables:**
-   - Create a `.env` file in both `client` and `server` folders.
-   - Add your API URLs, Firebase keys, Stripe keys, etc.
-
-4. **Run the app:**
-   ```
-   npm run dev
-   ```
-
-5. **Open in browser:**  
-   [http://localhost:5173](http://localhost:5173)
-
 ---
 
 ## ✨ Screenshots
@@ -155,6 +148,21 @@ Whether you're a healthcare organizer or a participant, we've got you covered.
 |Home | Dashboard | Analytics |
 |-----------|-----------|--------------|
 | ![Home](https://github.com/Programming-Hero-Web-Course4/b11a12-client-side-shakilsarkar12/blob/main/screenshort/Home.png?raw=true) | ![Dashboard](https://github.com/Programming-Hero-Web-Course4/b11a12-client-side-shakilsarkar12/blob/main/screenshort/dashboard.png) | ![Analytics](https://github.com/Programming-Hero-Web-Course4/b11a12-client-side-shakilsarkar12/blob/main/screenshort/analytics.png) |
+
+---
+
+## 📋 Website Highlights
+
+- Modern, mobile-first UI with Tailwind CSS
+- Organizer and participant dashboards with analytics
+- Camp registration with live participant count
+- Feedback and ratings system for transparency
+- Secure authentication and protected routes
+- Sweet alerts/toasts for all user actions
+- Pagination and search in all tables
+- Stripe payment integration
+- 404 Not Found page and helpful footer
+- All sensitive keys hidden with environment variables
 
 ---
 
@@ -167,8 +175,13 @@ For major changes, please open an issue first to discuss what you’d like to ch
 
 ## 📧 Contact
 
-Questions? Suggestions?  
-Email: support@medcamp-pro.com
+Questions or suggestions?  
+Feel free to reach out:
+
+- **Name:** Md Shakil Sarkar  
+- **Email:** [shakil.sarkar1932@gmail.com](mailto:shakil.sarkar1932@gmail.com)
+
+---
 
 ---
 
