@@ -27,8 +27,8 @@
 
 ## 👤 Organizer Credentials
 
-- **Username:** organizer1@medicamp.com
-- **Password:** Organizer@123
+- **email:** admin@gmail.com
+- **Password:** Admin11!
 
 ---
 
