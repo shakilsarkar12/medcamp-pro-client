@@ -29,6 +29,7 @@ const GoogleLogin = () => {
           creationTime,
           lastSignInTime: new Date().toISOString(),
           emailVerified,
+          role: "participant",
         };
 
         axiosSecure

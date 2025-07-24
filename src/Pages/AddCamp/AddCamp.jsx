@@ -96,7 +96,7 @@ const AddCamp = () => {
 
       //  Save to DB
       const saveRes = await axiosSecure.post(
-        `${import.meta.env.VITE_API_URL}/camp?email=${user?.email}`,
+        `/camp?email=${user?.email}`,
         campData
       );
 

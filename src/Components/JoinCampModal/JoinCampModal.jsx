@@ -6,6 +6,7 @@ import SecondaryButton from "../../Shared/SecondaryButton";
 import PrimaryButton from "../../Shared/PrimaryButton";
 import { Dialog, DialogPanel,  } from "@headlessui/react";
 import { toast } from "sonner";
+import axiosSecure from "../../Utils/axiosSecure";
 
 
 const JoinCampModal = ({ isOpen, setIsOpen, camp, refetchCamp }) => {
@@ -35,14 +36,14 @@ const JoinCampModal = ({ isOpen, setIsOpen, camp, refetchCamp }) => {
 
     try {
       // Save participant registration
-      await axios.post(
-        `${import.meta.env.VITE_API_URL}/camp-registrations`,
+      await axiosSecure.post(
+        `${import.meta.env.VITE_API_URL}/camp-registrations?email=${user?.email}`,
         registrationData
       );
 
       //   Update participant count
-      await axios.patch(
-        `${import.meta.env.VITE_API_URL}/camps/increment-participants`,
+      await axiosSecure.patch(
+        `${import.meta.env.VITE_API_URL}/camps/increment-participants?email=${user?.email}`,
         {
           campId: camp._id,
           email: user?.email,

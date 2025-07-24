@@ -56,11 +56,11 @@ const Navbar = () => {
 
         {/* Desktop Nav */}
         <nav className="hidden lg:flex items-center gap-8">
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="/available-camps">Available Camps</NavLink>
-          {!user && <NavLink to="/join-us">Join Us</NavLink>}
-          <NavLink to="/contact-us">Contact Us</NavLink>
-          <NavLink to="/about-us">About Us</NavLink>
+          <NavLink to="/" className="navbarlink transition" >Home</NavLink>
+          <NavLink to="/available-camps" className="navbarlink transition">Available Camps</NavLink>
+          {!user && <NavLink to="/join-us" className="navbarlink transition">Join Us</NavLink>}
+          <NavLink to="/contact-us" className="navbarlink transition">Contact Us</NavLink>
+          <NavLink to="/about-us" className="navbarlink transition">About Us</NavLink>
         </nav>
 
         {/* Desktop Auth/Profile */}
