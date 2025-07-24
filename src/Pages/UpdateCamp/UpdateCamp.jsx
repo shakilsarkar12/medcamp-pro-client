@@ -168,7 +168,7 @@ if (user.role !== "organizer") {
 
       // Update camp in DB using PATCH
       const saveRes = await axiosSecure.patch(
-        `/update-camp/${campId}`,
+        `/update-camp/${campId}&email=${user?.email}`,
         updatedCampData
       );
 

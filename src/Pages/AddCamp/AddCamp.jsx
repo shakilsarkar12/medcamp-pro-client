@@ -10,6 +10,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import HeadingTitle from "../../Shared/HeadingTitle";
 import useAuth from "../../Utils/Hooks/useAuth";
 import Spinner from "../../Shared/Spinner";
+import axiosSecure from "../../Utils/axiosSecure";
 
 const AddCamp = () => {
   const { user } = useAuth();
@@ -94,8 +95,8 @@ const AddCamp = () => {
       };
 
       //  Save to DB
-      const saveRes = await axios.post(
-        `${import.meta.env.VITE_API_URL}/camp`,
+      const saveRes = await axiosSecure.post(
+        `${import.meta.env.VITE_API_URL}/camp?email=${user?.email}`,
         campData
       );
 

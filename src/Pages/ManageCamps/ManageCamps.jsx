@@ -22,13 +22,16 @@ const ManageCamps = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["organizer-camps", user?.email, currentPage],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/camps/organizer`, {
-        params: {
-          email: user?.email,
-          page: currentPage,
-          limit: itemsPerPage,
-        },
-      });
+      const res = await axiosSecure.get(
+        `/camps/organizer`,
+        {
+          params: {
+            email: user?.email,
+            page: currentPage,
+            limit: itemsPerPage,
+          },
+        }
+      );
       return res.data;
     },
     enabled: !!user?.email,
@@ -46,7 +49,7 @@ const ManageCamps = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await axiosSecure.delete(`/delete-camp/${id}`);
+          await axiosSecure.delete(`/delete-camp/${id}?email=${user?.email}`);
           Swal.fire({
             title: "Deleted!",
             text: "Camp deleted successfully!",

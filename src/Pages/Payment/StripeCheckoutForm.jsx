@@ -4,10 +4,12 @@ import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import axiosSecure from "../../Utils/axiosSecure";
 import Swal from "sweetalert2";
+import useAuth from "../../Utils/Hooks/useAuth";
 
 const StripeCheckoutForm = ({ registration }) => {
   const [clientSecret, setClientSecret] = useState("");
   const [processing, setProcessing] = useState(false);
+  const { user } = useAuth();
 
   const stripe = useStripe();
   const elements = useElements();
@@ -20,7 +22,7 @@ const StripeCheckoutForm = ({ registration }) => {
     // Create PaymentIntent
     if (campFees > 0) {
       axiosSecure
-        .post(`/create-payment-intent`, {
+        .post(`/create-payment-intent?email=${user?.email}`, {
           amount: campFees,
         })
         .then((res) => {
@@ -32,7 +34,7 @@ const StripeCheckoutForm = ({ registration }) => {
         })
         .catch(() => toast.error("Failed to initialize payment"));
     }
-  }, [campFees]);
+  }, [campFees, user?.email]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -91,12 +93,15 @@ const StripeCheckoutForm = ({ registration }) => {
 
       try {
         // Save to payments collection
-        const paymentRes = await axiosSecure.post(`/payments`, paymentData);
+        const paymentRes = await axiosSecure.post(
+          `/payments?email=${user?.email}`,
+          paymentData
+        );
         if (!paymentRes.data?.success) {
           throw new Error("Failed to save payment record");
         }
         // Update registration status
-        const updateRes = await axiosSecure.patch(`/registrations/${_id}`);
+        const updateRes = await axiosSecure.patch(`/registrations/${_id}?email=${user?.email}`);
         if (!updateRes.data?.success) {
           throw new Error(
             updateRes.data?.message || "Failed to update registration"

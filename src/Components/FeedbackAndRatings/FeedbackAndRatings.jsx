@@ -4,18 +4,20 @@ import { FaStar } from "react-icons/fa";
 import HeadingTitle from "../../Shared/HeadingTitle";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
+import useAuth from "../../Utils/Hooks/useAuth";
 
 const FeedbackAndRatings = () => {
   const [feedbacks, setFeedbacks] = useState([]);
+  const { user } = useAuth();
 
   useEffect(() => {
     axiosSecure
-      .get("/feedbacks")
+      .get(`/feedbacks?email=${user?.email}`)
       .then((res) => {
         setFeedbacks(res.data);
       })
       .catch((err) => console.error("Error loading feedbacks", err));
-  }, []);
+  }, [user?.email]);
 
   return (
     <section className="pb-16">

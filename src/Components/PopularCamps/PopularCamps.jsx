@@ -4,13 +4,14 @@ import axiosSecure from "../../Utils/axiosSecure";
 import CampCard from "../../Shared/CampCard";
 import HeadingTitle from "../../Shared/HeadingTitle";
 import SecondaryButton from "../../Shared/SecondaryButton";
+import useAuth from "../../Utils/Hooks/useAuth";
 
 const PopularCamps = () => {
   const [popularCamps, setPopularCamps] = useState([]);
 
   useEffect(() => {
     axiosSecure
-      .get("/popular-camps")
+      .get(`/popular-camps`)
       .then((res) => {
         setPopularCamps(res.data);
       })

@@ -23,7 +23,10 @@ const UserFeedbackForm = ({ campId }) => {
     };
 
     try {
-      const res = await axiosSecure.post("/feedback", feedbackData);
+      const res = await axiosSecure.post(
+        `/feedback?email=${user?.email}`,
+        feedbackData
+      );
       if (res.data.insertedId) {
         toast.success("Feedback submitted successfully!");
         reset();

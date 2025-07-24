@@ -6,8 +6,10 @@ import Pagination from "../../Shared/Pagination";
 import axiosSecure from "../../Utils/axiosSecure";
 import { toast } from "sonner";
 import Spinner from "../../Shared/Spinner";
+import useAuth from "../../Utils/Hooks/useAuth";
 
 const ManageRegisteredCamps = () => {
+  const { user } = useAuth();
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const itemsPerPage = 10;
@@ -19,7 +21,7 @@ const ManageRegisteredCamps = () => {
     queryKey: ["camp-registrations", currentPage],
     queryFn: async () => {
       const res = await axiosSecure.get(
-        `/camp-registrations?page=${currentPage}&limit=${itemsPerPage}`
+        `/camp-registrations?page=${currentPage}&limit=${itemsPerPage}&?email=${user?.email}`
       );
       return res.data;
     },
@@ -47,14 +49,16 @@ const ManageRegisteredCamps = () => {
     }
     if (confirmationStatus === "Confirmed") return;
     try {
-      await axiosSecure.patch(`/camp-registrations/${_id}/confirm`);
+      await axiosSecure.patch(
+        `/camp-registrations/${_id}/confirm?email=${user?.email}`
+      );
       toast.success("Registration confirmed successfully!");
       refetch();
     } catch (err) {
       toast.error("Confirmation error:", err);
     }
   };
-
+  
   const handleCancel = async (registration) => {
     const { _id, pyamentStatus, confirmationStatus } = registration;
     if (pyamentStatus === "Paid" && confirmationStatus === "Confirmed") {
@@ -72,7 +76,7 @@ const ManageRegisteredCamps = () => {
     if (result.isConfirmed) {
       try {
         await axiosSecure.delete(
-          `/delete-registrations?id=${_id}&campID=${registration.campId}&email=${registration.participantEmail}`
+          `/delete-registrations?id=${_id}&campID=${registration.campId}&participantEmail=${registration.participantEmail}&email=${user?.email}`
         );
         Swal.fire({
           title: "Deleted!",
