@@ -173,7 +173,7 @@ For major changes, please open an issue first to discuss what you’d like to ch
 
 ---
 
-## 📧 Contact
+## Get Server Side Repo
 
 [Server side](https://github.com/shakilsarkar12/medcamp-pro-server)
 ---
