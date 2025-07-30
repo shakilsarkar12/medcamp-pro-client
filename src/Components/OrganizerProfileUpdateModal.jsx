@@ -5,6 +5,7 @@ import { FiEdit2 } from "react-icons/fi";
 import useAuth from "../Utils/Hooks/useAuth";
 
 import { toast } from "sonner";
+import axiosSecure from "../Utils/axiosSecure";
 
 const OrganizerProfileUpdateModal = ({ isOpen, onClose, setLoading }) => {
   const {user, setUser} = useAuth();
@@ -66,7 +67,7 @@ const OrganizerProfileUpdateModal = ({ isOpen, onClose, setLoading }) => {
     };
 
     try {
-      await axios.put(
+      await axiosSecure.put(
         `${import.meta.env.VITE_API_URL}/user?email=${user.email}`,
         updatedUser
       );
