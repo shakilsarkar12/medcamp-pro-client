@@ -5,6 +5,7 @@ import PopularCamps from "../../Components/PopularCamps/PopularCamps";
 import FeedbackAndRatings from "../../Components/FeedbackAndRatings/FeedbackAndRatings";
 import MedicalTipsSection from "../../Components/MedicalTipsSection/MedicalTipsSection";
 import Spinner from "../../Shared/Spinner";
+import StatisticsSection from "../../Components/StatisticsSection/StatisticsSection";
 
 const Home = () => {
     const [loading, setLoading] = useState(true);
@@ -22,6 +23,7 @@ const Home = () => {
       <PopularCamps />
       <FeedbackAndRatings />
       <MedicalTipsSection />
+      <StatisticsSection/>
     </div>
   );
 };

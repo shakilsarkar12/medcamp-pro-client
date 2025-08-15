@@ -44,7 +44,7 @@ const tips = [
 const MedicalTipsSection = () => {
   return (
     <section className="pb-12">
-      <div className="max-w-6xl mx-auto text-center">
+      <div className="text-center">
         <HeadingTitle
           heading="Medical Tips"
           title="Stay informed with simple yet essential tips that can help you and
